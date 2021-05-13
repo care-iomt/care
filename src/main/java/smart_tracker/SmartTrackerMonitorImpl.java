@@ -1,7 +1,6 @@
 package smart_tracker;
 
 import data_center.DataCenterConnection;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +8,7 @@ public class SmartTrackerMonitorImpl implements SmartTrackerMonitor {
     private final DataCenterConnection dataCenterConnection;
     private final List<SmartTrackerObserver> observerList;
     private SmartTrackerConfig config;
+    private SmartTrackerRunnable runnable;
 
     public SmartTrackerMonitorImpl(DataCenterConnection dataCenterConnection) {
         this.dataCenterConnection = dataCenterConnection;
@@ -32,5 +32,15 @@ public class SmartTrackerMonitorImpl implements SmartTrackerMonitor {
         observerList.remove(observer);
     }
 
-    //TODO Thread de eventos
+    @Override
+    public void start(Long patientId) {
+        runnable = new SmartTrackerRunnable(observerList, dataCenterConnection, patientId);
+        final Thread thread = new Thread(runnable);
+        thread.start();
+    }
+
+    @Override
+    public void stop() {
+        runnable.stop();
+    }
 }

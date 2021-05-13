@@ -1,7 +1,6 @@
 package blood_pressure;
 
 import data_center.DataCenterConnection;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,14 +8,13 @@ public class BloodPressureMonitorImpl implements BloodPressureMonitor {
     private final DataCenterConnection dataCenterConnection;
     private final List<BloodPressureObserver> observerList;
     private final BloodPressureState state;
+    private BloodPressureRunnable runnable;
     private BloodPressureConfig config;
-    private boolean isRunning;
 
     public BloodPressureMonitorImpl(DataCenterConnection dataCenterConnection) {
         this.dataCenterConnection = dataCenterConnection;
 
         observerList = new ArrayList<>();
-        isRunning = false;
 
         state = new BloodPressureState();
         state.setSystolic(0);
@@ -36,13 +34,15 @@ public class BloodPressureMonitorImpl implements BloodPressureMonitor {
     }
 
     @Override
-    public void start() {
-        isRunning = true;
+    public void start(Long patientId) {
+        runnable = new BloodPressureRunnable(observerList, dataCenterConnection, patientId);
+        final Thread thread = new Thread(runnable);
+        thread.start();
     }
 
     @Override
     public void stop() {
-        isRunning = false;
+        runnable.stop();
     }
 
     @Override
@@ -64,6 +64,4 @@ public class BloodPressureMonitorImpl implements BloodPressureMonitor {
     public void configure(BloodPressureConfig config) {
         this.config = config;
     }
-
-    //TODO Thread que observa
 }

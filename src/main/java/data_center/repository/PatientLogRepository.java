@@ -1,13 +1,15 @@
-package data_center;
+package data_center.repository;
+
+import data_center.entities.PatientLog;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LogRepository {
+public class PatientLogRepository {
     private final List<PatientLog> patientLogs;
 
-    public LogRepository() {
+    public PatientLogRepository() {
         patientLogs = new ArrayList<>();
     }
 

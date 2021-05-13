@@ -1,16 +1,27 @@
 package data_center;
 
+import data_center.controller.ButtonLogController;
+import data_center.controller.ButtonLogControllerImpl;
+import data_center.controller.PatientLogController;
+import data_center.controller.PatientLogControllerImpl;
+
 /**
  * Guarda as classes de conexão com o banco de dados
  */
 public class DataCenterConnection {
-    private final LogController logController;
+    private final PatientLogController patientLogController;
+    private final ButtonLogController buttonLogController;
 
-    public DataCenterConnection(LogController logController) {
-        this.logController = logController;
+    public DataCenterConnection() {
+        this.patientLogController = new PatientLogControllerImpl();
+        this.buttonLogController = new ButtonLogControllerImpl();
     }
 
-    public LogController getLogController() {
-        return logController;
+    public PatientLogController getPatientLogController() {
+        return patientLogController;
+    }
+
+    public ButtonLogController getButtonLogController() {
+        return buttonLogController;
     }
 }

@@ -1,7 +1,6 @@
 package temperature_monitor;
 
 import data_center.DataCenterConnection;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +9,12 @@ public class TemperatureMonitorImpl implements TemperatureMonitor {
     private final List<TemperatureObserver> observerList;
     private final TemperatureState state;
     private TemperatureConfig config;
-    private boolean isRunning;
+    private TemperatureMonitorRunnable runnable;
 
     public TemperatureMonitorImpl(DataCenterConnection dataCenterConnection) {
         this.dataCenterConnection = dataCenterConnection;
 
         observerList = new ArrayList<>();
-        isRunning = false;
 
         state = new TemperatureState();
         state.setTemperature(0);
@@ -32,13 +30,15 @@ public class TemperatureMonitorImpl implements TemperatureMonitor {
     }
 
     @Override
-    public void start() {
-        isRunning = true;
+    public void start(Long patientId) {
+        runnable = new TemperatureMonitorRunnable(observerList, dataCenterConnection, patientId);
+        final Thread thread = new Thread(runnable);
+        thread.start();
     }
 
     @Override
     public void stop() {
-        isRunning = false;
+        runnable.stop();
     }
 
     @Override
@@ -60,6 +60,4 @@ public class TemperatureMonitorImpl implements TemperatureMonitor {
     public TemperatureState getCurrentState() {
         return state;
     }
-
-    //TODO Thread de eventos
 }

@@ -3,8 +3,9 @@ package temperature_monitor;
 public interface TemperatureMonitor {
     /**
      * Inicia o monitoramento
+     * @param patientId identificação do paciênte relacionado
      */
-    void start();
+    void start(Long patientId);
 
     /**
      * Para o monitoramento

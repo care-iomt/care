@@ -1,4 +1,4 @@
-package data_center;
+package data_center.entities;
 
 public class PatientLog {
     private Long patientId;

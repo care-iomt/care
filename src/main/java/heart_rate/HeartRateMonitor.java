@@ -3,8 +3,9 @@ package heart_rate;
 public interface HeartRateMonitor {
     /**
      * Inicia o monitoramento
+     * @param patientId identificação do paciênte relacionado
      */
-    void start();
+    void start(Long patientId);
 
     /**
      * Para o monitoramento
