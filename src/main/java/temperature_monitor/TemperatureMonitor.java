@@ -1,6 +1,6 @@
-package heart_rate;
+package temperature_monitor;
 
-public interface Monitor {
+public interface TemperatureMonitor {
     /**
      * Inicia o monitoramento
      */
@@ -15,23 +15,23 @@ public interface Monitor {
      * Configura o monitor
      * @param config objeto de configuração
      */
-    void configure(Config config);
+    void configure(TemperatureConfig config);
 
     /**
      * Adicionar um observer para callback em caso de alertas configurados
      * @param observer objeto para callback
      */
-    void addObserver(Observer observer);
+    void addObserver(TemperatureObserver observer);
 
     /**
      * remove um observer
      * @param observer objeto para callback
      */
-    void removeObserver(Observer observer);
+    void removeObserver(TemperatureObserver observer);
 
     /**
      * Retorna o estado atual
      * @return estado atual
      */
-    State getCurrentState();
+    TemperatureState getCurrentState();
 }

@@ -1,14 +1,13 @@
-package blood_pressure;
+package smart_tracker;
 
-public enum AlertType {
-    MAX_DIASTOLIC(1),
-    MIN_DIASTOLIC(2),
-    MAX_SYSTOLIC(3),
-    MIN_SYSTOLIC(4);
+public enum SmartTrackerAlertType {
+    FEVER(1),
+    TACHYCARDIA(2),
+    BRADYCARDIA(3);
 
     private int value;
 
-    AlertType(int value) {
+    SmartTrackerAlertType(int value) {
         this.value = value;
     }
 

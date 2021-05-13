@@ -1,11 +1,11 @@
 package temperature_monitor;
 
-public class Config {
+public class TemperatureConfig {
     private Long patientId;
-    private State minState;
-    private State maxState;
+    private TemperatureState minState;
+    private TemperatureState maxState;
 
-    public Config() { }
+    public TemperatureConfig() { }
 
     public Long getPatientId() {
         return patientId;
@@ -15,19 +15,19 @@ public class Config {
         this.patientId = patientId;
     }
 
-    public State getMinState() {
+    public TemperatureState getMinState() {
         return minState;
     }
 
-    public void setMinState(State minState) {
+    public void setMinState(TemperatureState minState) {
         this.minState = minState;
     }
 
-    public State getMaxState() {
+    public TemperatureState getMaxState() {
         return maxState;
     }
 
-    public void setMaxState(State maxState) {
+    public void setMaxState(TemperatureState maxState) {
         this.maxState = maxState;
     }
 }

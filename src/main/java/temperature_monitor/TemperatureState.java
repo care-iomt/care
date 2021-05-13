@@ -1,6 +1,6 @@
 package temperature_monitor;
 
-public class State {
+public class TemperatureState {
     private Integer temperature;
 
     public Integer getTemperature() {

@@ -1,12 +1,12 @@
 package heart_rate;
 
-public enum AlertType {
+public enum HeartRateAlertType {
     MAX(1),
     MIN(2);
 
     private int value;
 
-    AlertType(int value) {
+    HeartRateAlertType(int value) {
         this.value = value;
     }
 

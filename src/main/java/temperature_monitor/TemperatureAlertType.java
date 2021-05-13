@@ -1,12 +1,12 @@
 package temperature_monitor;
 
-public enum AlertType {
+public enum TemperatureAlertType {
     MAX(1),
     MIN(2);
 
     private final int value;
 
-    AlertType(int value) {
+    TemperatureAlertType(int value) {
         this.value = value;
     }
 

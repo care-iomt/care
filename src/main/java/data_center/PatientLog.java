@@ -1,6 +1,6 @@
 package data_center;
 
-public class Log {
+public class PatientLog {
     private Long patientId;
     private String monitorName;
     private String info;

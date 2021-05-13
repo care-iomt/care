@@ -1,6 +1,6 @@
 package blood_pressure;
 
-public class State {
+public class BloodPressureState {
     private Integer systolic;
     private Integer diastolic;
 

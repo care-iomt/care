@@ -1,5 +1,5 @@
 package alert_button;
 
-public interface Observer {
+public interface AlertButtonObserver {
     void alert();
 }

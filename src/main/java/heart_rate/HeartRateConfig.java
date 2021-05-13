@@ -1,11 +1,11 @@
 package heart_rate;
 
-public class Config {
+public class HeartRateConfig {
     private Long patientId;
-    private State minState;
-    private State maxState;
+    private HeartRateState minState;
+    private HeartRateState maxState;
 
-    public Config() { }
+    public HeartRateConfig() { }
 
     public Long getPatientId() {
         return patientId;
@@ -15,19 +15,19 @@ public class Config {
         this.patientId = patientId;
     }
 
-    public State getMinState() {
+    public HeartRateState getMinState() {
         return minState;
     }
 
-    public void setMinState(State minState) {
+    public void setMinState(HeartRateState minState) {
         this.minState = minState;
     }
 
-    public State getMaxState() {
+    public HeartRateState getMaxState() {
         return maxState;
     }
 
-    public void setMaxState(State maxState) {
+    public void setMaxState(HeartRateState maxState) {
         this.maxState = maxState;
     }
 }

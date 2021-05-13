@@ -1,6 +1,6 @@
 package heart_rate;
 
-public class State {
+public class HeartRateState {
     private Integer heartRate;
 
     public Integer getHeartRate() {

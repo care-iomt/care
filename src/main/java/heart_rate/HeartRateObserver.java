@@ -1,5 +1,5 @@
 package heart_rate;
 
-public interface Observer {
+public interface HeartRateObserver {
     void alert(AlertType alertType);
 }
