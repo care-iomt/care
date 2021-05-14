@@ -39,10 +39,10 @@ public class TemperatureMonitorRunnable implements Runnable {
 
     private TemperatureAlertType getAlertType() {
         int alertCode = (int) (Math.random() * 21);
-        return switch (alertCode) {
-            case 1 -> TemperatureAlertType.MAX;
-            case 2 -> TemperatureAlertType.MIN;
-            default -> null;
-        };
+        switch (alertCode) {
+            case 1: return TemperatureAlertType.MAX;
+            case 2: return TemperatureAlertType.MIN;
+            default: return null;
+        }
     }
 }

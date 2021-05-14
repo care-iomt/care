@@ -39,10 +39,10 @@ public class HeartRateRunnable implements Runnable {
 
     private HeartRateAlertType getAlertType() {
         int alertCode = (int) (Math.random() * 21);
-        return switch (alertCode) {
-            case 1 -> HeartRateAlertType.MAX;
-            case 2 -> HeartRateAlertType.MIN;
-            default -> null;
-        };
+        switch (alertCode) {
+            case 1: return HeartRateAlertType.MAX;
+            case 2: return HeartRateAlertType.MIN;
+            default: return null;
+        }
     }
 }
