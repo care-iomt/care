@@ -2,6 +2,7 @@ package heart_rate;
 
 import data_center.DataCenterConnection;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 
 public class HeartRateRunnable implements Runnable {
@@ -10,15 +11,14 @@ public class HeartRateRunnable implements Runnable {
     private final Long patientId;
     private boolean isRunning;
 
-    public HeartRateRunnable(List<HeartRateObserver> observerList, DataCenterConnection dataCenterConnection,
-                             Long patientId) {
+    public HeartRateRunnable(List<HeartRateObserver> observerList, Long patientId) {
         this.observerList = observerList;
-        this.dataCenterConnection = dataCenterConnection;
+        this.dataCenterConnection = DataCenterConnection.getInstance();
         this.patientId = patientId;
         isRunning = true;
     }
 
-    public void stop() {
+    public void kill() {
         isRunning = false;
     }
 

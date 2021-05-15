@@ -51,7 +51,7 @@ public class SmartTrackerMonitorImpl implements SmartTrackerMonitor {
 
     @Override
     public void stop() {
-        runnable.stop();
+        runnable.kill();
         isRunning = false;
     }
 

@@ -1,7 +1,6 @@
 package smart_tracker;
 
 import data_center.DataCenterConnection;
-
 import java.util.List;
 
 public class SmartTrackerRunnable implements Runnable {
@@ -10,15 +9,14 @@ public class SmartTrackerRunnable implements Runnable {
     private final Long patientId;
     private boolean isRunning;
 
-    public SmartTrackerRunnable(List<SmartTrackerObserver> observerList, DataCenterConnection dataCenterConnection,
-                                Long patientId) {
+    public SmartTrackerRunnable(List<SmartTrackerObserver> observerList, Long patientId) {
         this.observerList = observerList;
-        this.dataCenterConnection = dataCenterConnection;
+        this.dataCenterConnection = DataCenterConnection.getInstance();
         this.patientId = patientId;
         isRunning = true;
     }
 
-    public void stop() {
+    public void kill() {
         isRunning = false;
     }
 
@@ -39,11 +37,11 @@ public class SmartTrackerRunnable implements Runnable {
 
     private SmartTrackerAlertType getAlertType() {
         int alertCode = (int) (Math.random() * 21);
-        switch (alertCode) {
-            case 1: return SmartTrackerAlertType.FEVER;
-            case 2: return SmartTrackerAlertType.TACHYCARDIA;
-            case 3: return SmartTrackerAlertType.BRADYCARDIA;
-            default: return null;
-        }
+        return switch (alertCode) {
+            case 1 -> SmartTrackerAlertType.FEVER;
+            case 2 -> SmartTrackerAlertType.TACHYCARDIA;
+            case 3 -> SmartTrackerAlertType.BRADYCARDIA;
+            default -> null;
+        };
     }
 }

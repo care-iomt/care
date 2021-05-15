@@ -10,14 +10,14 @@ public class AlertButtonRunnable implements Runnable {
     private final Long code;
     private boolean isRunning;
 
-    public AlertButtonRunnable(List<AlertButtonObserver> observerList, Long code, DataCenterConnection dataCenterConnection) {
+    public AlertButtonRunnable(List<AlertButtonObserver> observerList, Long code) {
         this.observerList = observerList;
-        this.dataCenterConnection = dataCenterConnection;
+        this.dataCenterConnection = DataCenterConnection.getInstance();
         this.code = code;
         isRunning = true;
     }
 
-    public void stop() {
+    public void kill() {
         isRunning = false;
     }
 

@@ -12,12 +12,14 @@ public class DataCenterConnection {
     private final ButtonLogController buttonLogController;
     private final PatientController patientController;
     private final PatientAlertButtonController patientAlertButtonController;
+    private final PersonController personController;
 
     private DataCenterConnection() {
-        this.patientLogController = new PatientLogControllerImpl();
-        this.buttonLogController = new ButtonLogControllerImpl();
-        this.patientController = new PatientControllerImpl();
-        this.patientAlertButtonController = new PatientAlertButtonControllerImpl();
+        patientLogController = new PatientLogControllerImpl();
+        buttonLogController = new ButtonLogControllerImpl();
+        patientController = new PatientControllerImpl();
+        patientAlertButtonController = new PatientAlertButtonControllerImpl();
+        personController = new PersonControllerImpl();
     }
 
     public static DataCenterConnection getInstance() {
@@ -41,5 +43,9 @@ public class DataCenterConnection {
 
     public PatientAlertButtonController getPatientAlertButtonController() {
         return patientAlertButtonController;
+    }
+
+    public PersonController getPersonController() {
+        return personController;
     }
 }

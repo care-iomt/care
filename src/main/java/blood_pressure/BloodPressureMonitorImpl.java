@@ -1,11 +1,9 @@
 package blood_pressure;
 
-import data_center.DataCenterConnection;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BloodPressureMonitorImpl implements BloodPressureMonitor {
-    private final DataCenterConnection dataCenterConnection;
     private final List<BloodPressureObserver> observerList;
     private final BloodPressureState state;
     private final Long code;
@@ -13,8 +11,7 @@ public class BloodPressureMonitorImpl implements BloodPressureMonitor {
     private BloodPressureConfig config;
     private boolean isRunning;
 
-    public BloodPressureMonitorImpl(DataCenterConnection dataCenterConnection, Long code) {
-        this.dataCenterConnection = dataCenterConnection;
+    public BloodPressureMonitorImpl(Long code) {
         this.code = code;
         this.isRunning = false;
 
@@ -39,7 +36,7 @@ public class BloodPressureMonitorImpl implements BloodPressureMonitor {
 
     @Override
     public void start(Long patientId) {
-        runnable = new BloodPressureRunnable(observerList, dataCenterConnection, patientId);
+        runnable = new BloodPressureRunnable(observerList, patientId);
         final Thread thread = new Thread(runnable);
         thread.start();
         isRunning = true;
@@ -48,7 +45,7 @@ public class BloodPressureMonitorImpl implements BloodPressureMonitor {
     @Override
     public void stop() {
         isRunning = false;
-        runnable.stop();
+        runnable.kill();
     }
 
     @Override

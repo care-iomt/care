@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HeartRateMonitorImpl implements HeartRateMonitor {
-    private final DataCenterConnection dataCenterConnection;
     private final List<HeartRateObserver> observerList;
     private final HeartRateState state;
     private final Long code;
@@ -14,8 +13,7 @@ public class HeartRateMonitorImpl implements HeartRateMonitor {
     private HeartRateRunnable runnable;
     private boolean isRunning;
 
-    public HeartRateMonitorImpl(DataCenterConnection dataCenterConnection, Long code) {
-        this.dataCenterConnection = dataCenterConnection;
+    public HeartRateMonitorImpl(Long code) {
         this.code = code;
         this.isRunning = false;
 
@@ -37,7 +35,7 @@ public class HeartRateMonitorImpl implements HeartRateMonitor {
 
     @Override
     public void start(Long patientId) {
-        runnable = new HeartRateRunnable(observerList, dataCenterConnection, patientId);
+        runnable = new HeartRateRunnable(observerList, patientId);
         final Thread thread = new Thread(runnable);
         thread.start();
         isRunning = true;
@@ -45,7 +43,7 @@ public class HeartRateMonitorImpl implements HeartRateMonitor {
 
     @Override
     public void stop() {
-        runnable.stop();
+        runnable.kill();
         isRunning = false;
     }
 

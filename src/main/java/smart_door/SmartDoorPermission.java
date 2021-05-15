@@ -1,6 +1,6 @@
 package smart_door;
 
-public enum Permission {
+public enum SmartDoorPermission {
     ADMIN(1),
     MEDICAL(2),
     NURSE(3),
@@ -10,7 +10,7 @@ public enum Permission {
 
     private final int value;
 
-    Permission(int value) {
+    SmartDoorPermission(int value) {
         this.value = value;
     }
 

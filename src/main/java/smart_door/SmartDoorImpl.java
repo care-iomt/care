@@ -1,19 +1,24 @@
 package smart_door;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class SmartDoorImpl implements SmartDoor {
-    private final List<Permission> permissions;
     private final String sector;
+    private SmartDoorConfig smartDoorConfig;
 
-    public SmartDoorImpl(List<Permission> permissions, String sector) {
-        this.permissions = permissions;
+    public SmartDoorImpl(String sector) {
+        this.smartDoorConfig = new SmartDoorConfig(new ArrayList<>(), "None");
         this.sector = sector;
     }
 
     @Override
-    public boolean auth(Auth auth) {
-        return permissions.stream()
-                .anyMatch(permission -> permission.getValue() == auth.getPermission().getValue());
+    public boolean auth(SmartDoorAuth smartDoorAuth) {
+        return smartDoorConfig.getPermissions().stream()
+                .anyMatch(permission -> permission.getValue() == smartDoorAuth.getPermission().getValue());
+    }
+
+    @Override
+    public void configure(SmartDoorConfig smartDoorConfig) {
+        this.smartDoorConfig = smartDoorConfig;
     }
 }
