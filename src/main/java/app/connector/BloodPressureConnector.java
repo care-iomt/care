@@ -53,12 +53,12 @@ public class BloodPressureConnector {
 
     public Optional<BloodPressureMonitor> getByCode(Long code) {
         return bloodPressureMonitors.stream()
-                .filter(heartRateMonitor -> heartRateMonitor.getCode().equals(code)).findFirst();
+                .filter(heartRateMonitor -> code.equals(heartRateMonitor.getCode())).findFirst();
     }
 
     public Optional<BloodPressureMonitor> getByPatientId(Long patientId) {
         return bloodPressureMonitors.stream()
-                .filter(heartRateMonitor -> heartRateMonitor.getPatientId().equals(patientId)).findFirst();
+                .filter(heartRateMonitor -> patientId.equals(heartRateMonitor.getPatientId())).findFirst();
     }
 
     public void attachPatientToMonitor(Patient patient, Long code, BloodPressureObserver observer,

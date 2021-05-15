@@ -55,7 +55,7 @@ public class SmartTrackerConnector {
 
     public Optional<SmartTrackerMonitor> getByCode(Long code) {
         return smartTrackerMonitors.stream()
-                .filter(smartTrackerMonitor -> smartTrackerMonitor.getCode().equals(code)).findFirst();
+                .filter(smartTrackerMonitor -> code.equals(smartTrackerMonitor.getCode())).findFirst();
     }
 
     public void attachPatientToMonitor(Patient patient, Long code, SmartTrackerObserverImpl observer,

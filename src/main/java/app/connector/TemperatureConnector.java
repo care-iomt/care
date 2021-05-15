@@ -56,12 +56,12 @@ public class TemperatureConnector {
 
     public Optional<TemperatureMonitor> getByCode(Long code) {
         return temperatureMonitors.stream()
-                .filter(heartRateMonitor -> heartRateMonitor.getCode().equals(code)).findFirst();
+                .filter(temperatureMonitor -> code.equals(temperatureMonitor.getCode())).findFirst();
     }
 
     public Optional<TemperatureMonitor> getByPatientId(Long patientId) {
         return temperatureMonitors.stream()
-                .filter(heartRateMonitor -> heartRateMonitor.getPatientId().equals(patientId)).findFirst();
+                .filter(temperatureMonitor -> patientId.equals(temperatureMonitor.getPatientId())).findFirst();
     }
 
     public void attachPatientToMonitor(Patient patient, Long code, TemperatureObserverImpl temperatureObserver,
