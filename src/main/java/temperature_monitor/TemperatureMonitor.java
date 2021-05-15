@@ -47,4 +47,10 @@ public interface TemperatureMonitor {
      * @return código do dispositivo
      */
     boolean isUsed();
+
+    /**
+     * Busca o id do paciente associado ao dispositivo
+     * @return patient id
+     */
+    Long getPatientId();
 }

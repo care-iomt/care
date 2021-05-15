@@ -1,7 +1,6 @@
 package app.connector;
 
 import app.observers.HeartRateObserverImpl;
-import data_center.DataCenterConnection;
 import data_center.entities.Patient;
 import heart_rate.HeartRateConfig;
 import heart_rate.HeartRateMonitor;
@@ -17,7 +16,6 @@ public class HeartRateConnector {
     private final List<HeartRateMonitor> heartRateMonitors;
 
     private HeartRateConnector() {
-        final DataCenterConnection dataCenterConnection = DataCenterConnection.getInstance();
         heartRateMonitors = new ArrayList<>();
         final HeartRateMonitor heartRateMonitor1 = new HeartRateMonitorImpl(121212L);
         final HeartRateMonitor heartRateMonitor2 = new HeartRateMonitorImpl(321312L);
@@ -56,6 +54,11 @@ public class HeartRateConnector {
     public Optional<HeartRateMonitor> getByCode(Long code) {
         return heartRateMonitors.stream()
                 .filter(heartRateMonitor -> heartRateMonitor.getCode().equals(code)).findFirst();
+    }
+
+    public Optional<HeartRateMonitor> getByPatientId(Long patientId) {
+        return heartRateMonitors.stream()
+                .filter(heartRateMonitor -> heartRateMonitor.getPatientId().equals(patientId)).findFirst();
     }
 
     public void attachPatientToMonitor(Patient patient, Long code, HeartRateObserverImpl heartRateObserver,

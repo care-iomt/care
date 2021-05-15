@@ -3,6 +3,7 @@ package app.connector;
 import app.observers.TemperatureObserverImpl;
 import data_center.DataCenterConnection;
 import data_center.entities.Patient;
+import heart_rate.HeartRateMonitor;
 import smart_tracker.SmartTrackerMonitor;
 import temperature_monitor.TemperatureConfig;
 import temperature_monitor.TemperatureMonitor;
@@ -56,6 +57,11 @@ public class TemperatureConnector {
     public Optional<TemperatureMonitor> getByCode(Long code) {
         return temperatureMonitors.stream()
                 .filter(heartRateMonitor -> heartRateMonitor.getCode().equals(code)).findFirst();
+    }
+
+    public Optional<TemperatureMonitor> getByPatientId(Long patientId) {
+        return temperatureMonitors.stream()
+                .filter(heartRateMonitor -> heartRateMonitor.getPatientId().equals(patientId)).findFirst();
     }
 
     public void attachPatientToMonitor(Patient patient, Long code, TemperatureObserverImpl temperatureObserver,

@@ -7,6 +7,7 @@ public class TemperatureMonitorImpl implements TemperatureMonitor {
     private final List<TemperatureObserver> observerList;
     private final TemperatureState state;
     private final Long code;
+    private Long patientId;
     private TemperatureConfig config;
     private TemperatureMonitorRunnable runnable;
     private boolean isRunning;
@@ -35,6 +36,7 @@ public class TemperatureMonitorImpl implements TemperatureMonitor {
         final Thread thread = new Thread(runnable);
         thread.start();
         isRunning = true;
+        this.patientId = patientId;
     }
 
     @Override
@@ -71,5 +73,10 @@ public class TemperatureMonitorImpl implements TemperatureMonitor {
     @Override
     public boolean isUsed() {
         return isRunning;
+    }
+
+    @Override
+    public Long getPatientId() {
+        return this.patientId;
     }
 }

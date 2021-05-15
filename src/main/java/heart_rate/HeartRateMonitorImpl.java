@@ -1,7 +1,5 @@
 package heart_rate;
 
-import data_center.DataCenterConnection;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +7,7 @@ public class HeartRateMonitorImpl implements HeartRateMonitor {
     private final List<HeartRateObserver> observerList;
     private final HeartRateState state;
     private final Long code;
+    private Long patientId;
     private HeartRateConfig config;
     private HeartRateRunnable runnable;
     private boolean isRunning;
@@ -38,6 +37,7 @@ public class HeartRateMonitorImpl implements HeartRateMonitor {
         runnable = new HeartRateRunnable(observerList, patientId);
         final Thread thread = new Thread(runnable);
         thread.start();
+        this.patientId = patientId;
         isRunning = true;
     }
 
@@ -60,6 +60,11 @@ public class HeartRateMonitorImpl implements HeartRateMonitor {
     @Override
     public boolean isUsed() {
         return isRunning;
+    }
+
+    @Override
+    public Long getPatientId() {
+        return this.patientId;
     }
 
     @Override

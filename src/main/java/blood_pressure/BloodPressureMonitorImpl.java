@@ -7,6 +7,7 @@ public class BloodPressureMonitorImpl implements BloodPressureMonitor {
     private final List<BloodPressureObserver> observerList;
     private final BloodPressureState state;
     private final Long code;
+    private Long patientId;
     private BloodPressureRunnable runnable;
     private BloodPressureConfig config;
     private boolean isRunning;
@@ -40,6 +41,7 @@ public class BloodPressureMonitorImpl implements BloodPressureMonitor {
         final Thread thread = new Thread(runnable);
         thread.start();
         isRunning = true;
+        this.patientId = patientId;
     }
 
     @Override
@@ -61,6 +63,11 @@ public class BloodPressureMonitorImpl implements BloodPressureMonitor {
     @Override
     public boolean isUsed() {
         return isRunning;
+    }
+
+    @Override
+    public Long getPatientId() {
+        return this.patientId;
     }
 
     @Override
