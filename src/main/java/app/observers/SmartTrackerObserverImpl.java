@@ -1,4 +1,4 @@
-package app;
+package app.observers;
 
 import smart_tracker.SmartTrackerAlertType;
 import smart_tracker.SmartTrackerObserver;

@@ -7,10 +7,12 @@ import java.util.List;
 
 public class AlertButtonMonitorImpl implements AlertButtonMonitor {
     private final List<AlertButtonObserver> observerList;
+    private final Long code;
 
-    public AlertButtonMonitorImpl(Long id, DataCenterConnection dataCenterConnection) {
+    public AlertButtonMonitorImpl(DataCenterConnection dataCenterConnection, Long code) {
+        this.code = code;
         observerList = new ArrayList<>();
-        final AlertButtonRunnable runnable = new AlertButtonRunnable(observerList, id, dataCenterConnection);
+        final AlertButtonRunnable runnable = new AlertButtonRunnable(observerList, code, dataCenterConnection);
         final Thread thread = new Thread(runnable);
         thread.start();
     }
@@ -23,5 +25,10 @@ public class AlertButtonMonitorImpl implements AlertButtonMonitor {
     @Override
     public void removeObserver(AlertButtonObserver observer) {
         observerList.remove(observer);
+    }
+
+    @Override
+    public Long getCode() {
+        return code;
     }
 }

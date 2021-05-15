@@ -1,14 +1,13 @@
 import alert_button.AlertButtonMonitor;
 import alert_button.AlertButtonMonitorImpl;
 import alert_button.AlertButtonObserver;
-import app.*;
+import app.observers.*;
 import app.ui.MainUI;
 import blood_pressure.BloodPressureMonitor;
 import blood_pressure.BloodPressureMonitorImpl;
 import blood_pressure.BloodPressureObserver;
 import data_center.DataCenterConnection;
 import data_center.controller.PatientController;
-import data_center.controller.PatientControllerImpl;
 import data_center.entities.Patient;
 import heart_rate.HeartRateMonitor;
 import heart_rate.HeartRateMonitorImpl;
@@ -30,6 +29,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         final DataCenterConnection dataCenterConnection = DataCenterConnection.getInstance();
 
+        /*
         // ALERT BUTTON TEST
         final AlertButtonMonitor alertButtonMonitor = new AlertButtonMonitorImpl(0L, dataCenterConnection);
         final AlertButtonObserver alertButtonObserver = new AlertButtonObserverImpl();
@@ -69,7 +69,7 @@ public class Main {
         patientAPI.register(patient3);
         Patient patient4 = new Patient("Ciclano Beltrano", "000.000.000-03");
         patientAPI.register(patient4);
-
+*/
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
@@ -81,6 +81,4 @@ public class Main {
             mainUI.setVisible(true);
         });
     }
-
-
 }

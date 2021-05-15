@@ -31,7 +31,7 @@ public class HeartRateRunnable implements Runnable {
                 if (alertType != null) {
                     dataCenterConnection.getPatientLogController()
                             .saveLog(patientId, "Heart Rate", "Alert code: "+alertType.getValue());
-                    observerList.forEach(observer -> observer.alert(alertType));
+                    observerList.forEach(observer -> observer.alert(alertType, patientId));
                 }
             } catch (InterruptedException ignored) { }
         }

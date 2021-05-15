@@ -12,4 +12,10 @@ public interface AlertButtonMonitor {
      * @param alertButtonObserver objeto para callback
      */
     void removeObserver(AlertButtonObserver alertButtonObserver);
+
+    /**
+     * Retorna o código do dispositivo
+     * @return código do dispositivo
+     */
+    Long getCode();
 }

@@ -1,4 +1,4 @@
-package app;
+package app.observers;
 
 import blood_pressure.BloodPressureAlertType;
 import blood_pressure.BloodPressureObserver;

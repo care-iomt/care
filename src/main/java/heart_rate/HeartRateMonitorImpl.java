@@ -9,11 +9,15 @@ public class HeartRateMonitorImpl implements HeartRateMonitor {
     private final DataCenterConnection dataCenterConnection;
     private final List<HeartRateObserver> observerList;
     private final HeartRateState state;
+    private final Long code;
     private HeartRateConfig config;
     private HeartRateRunnable runnable;
+    private boolean isRunning;
 
-    public HeartRateMonitorImpl(DataCenterConnection dataCenterConnection) {
+    public HeartRateMonitorImpl(DataCenterConnection dataCenterConnection, Long code) {
         this.dataCenterConnection = dataCenterConnection;
+        this.code = code;
+        this.isRunning = false;
 
         observerList = new ArrayList<>();
 
@@ -36,16 +40,28 @@ public class HeartRateMonitorImpl implements HeartRateMonitor {
         runnable = new HeartRateRunnable(observerList, dataCenterConnection, patientId);
         final Thread thread = new Thread(runnable);
         thread.start();
+        isRunning = true;
     }
 
     @Override
     public void stop() {
         runnable.stop();
+        isRunning = false;
     }
 
     @Override
     public HeartRateState getCurrentState() {
         return state;
+    }
+
+    @Override
+    public Long getCode() {
+        return code;
+    }
+
+    @Override
+    public boolean isUsed() {
+        return isRunning;
     }
 
     @Override

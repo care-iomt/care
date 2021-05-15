@@ -17,7 +17,7 @@ public class PatientLogRepository {
         patientLogs.add(patientLog);
     }
 
-    public List<PatientLog> getAll(Long patientId) {
+    public List<PatientLog> findAllByPatientId(Long patientId) {
         return patientLogs.stream().filter(log -> log.getPatientId().equals(patientId)).collect(Collectors.toList());
     }
 }

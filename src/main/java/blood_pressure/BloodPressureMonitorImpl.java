@@ -8,11 +8,15 @@ public class BloodPressureMonitorImpl implements BloodPressureMonitor {
     private final DataCenterConnection dataCenterConnection;
     private final List<BloodPressureObserver> observerList;
     private final BloodPressureState state;
+    private final Long code;
     private BloodPressureRunnable runnable;
     private BloodPressureConfig config;
+    private boolean isRunning;
 
-    public BloodPressureMonitorImpl(DataCenterConnection dataCenterConnection) {
+    public BloodPressureMonitorImpl(DataCenterConnection dataCenterConnection, Long code) {
         this.dataCenterConnection = dataCenterConnection;
+        this.code = code;
+        this.isRunning = false;
 
         observerList = new ArrayList<>();
 
@@ -38,16 +42,28 @@ public class BloodPressureMonitorImpl implements BloodPressureMonitor {
         runnable = new BloodPressureRunnable(observerList, dataCenterConnection, patientId);
         final Thread thread = new Thread(runnable);
         thread.start();
+        isRunning = true;
     }
 
     @Override
     public void stop() {
+        isRunning = false;
         runnable.stop();
     }
 
     @Override
     public BloodPressureState getCurrentState() {
         return state;
+    }
+
+    @Override
+    public Long getCode() {
+        return code;
+    }
+
+    @Override
+    public boolean isUsed() {
+        return isRunning;
     }
 
     @Override

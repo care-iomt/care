@@ -1,9 +1,8 @@
 package data_center.entities;
 
-import app.StringUtils;
+import app.utils.StringUtils;
 
 public class Patient {
-
     Long patientId;
     String name;
     String cpf;

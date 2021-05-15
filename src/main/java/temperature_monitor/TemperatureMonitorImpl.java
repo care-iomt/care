@@ -8,12 +8,15 @@ public class TemperatureMonitorImpl implements TemperatureMonitor {
     private final DataCenterConnection dataCenterConnection;
     private final List<TemperatureObserver> observerList;
     private final TemperatureState state;
+    private final Long code;
     private TemperatureConfig config;
     private TemperatureMonitorRunnable runnable;
+    private boolean isRunning;
 
-    public TemperatureMonitorImpl(DataCenterConnection dataCenterConnection) {
+    public TemperatureMonitorImpl(DataCenterConnection dataCenterConnection, Long code) {
         this.dataCenterConnection = dataCenterConnection;
-
+        this.code = code;
+        this.isRunning = false;
         observerList = new ArrayList<>();
 
         state = new TemperatureState();
@@ -34,11 +37,13 @@ public class TemperatureMonitorImpl implements TemperatureMonitor {
         runnable = new TemperatureMonitorRunnable(observerList, dataCenterConnection, patientId);
         final Thread thread = new Thread(runnable);
         thread.start();
+        isRunning = true;
     }
 
     @Override
     public void stop() {
         runnable.stop();
+        isRunning = false;
     }
 
     @Override
@@ -59,5 +64,15 @@ public class TemperatureMonitorImpl implements TemperatureMonitor {
     @Override
     public TemperatureState getCurrentState() {
         return state;
+    }
+
+    @Override
+    public Long getCode() {
+        return code;
+    }
+
+    @Override
+    public boolean isUsed() {
+        return isRunning;
     }
 }

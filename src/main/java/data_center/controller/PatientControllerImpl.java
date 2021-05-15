@@ -3,7 +3,7 @@ package data_center.controller;
 import data_center.entities.Patient;
 import data_center.repository.PatientRepository;
 
-import java.util.List;
+import java.util.Optional;
 
 public class PatientControllerImpl implements PatientController {
     private final PatientRepository patientRepository;
@@ -13,23 +13,19 @@ public class PatientControllerImpl implements PatientController {
     }
 
     @Override
-    public Patient getPatient(Long patientId) {
-        return patientRepository.getPatient(patientId);
+    public Patient getByCPF(String cpf) {
+        Optional<Patient> patientSearch = patientRepository.findByCPF(cpf);
+        return patientSearch.orElse(null);
     }
 
     @Override
-    public boolean isPatientRegistered(Long patientId) {
-        return getPatient(patientId) != null;
-    }
-
-    @Override
-    public List<Patient> getAllPatients() {
-        return patientRepository.getPatients();
+    public boolean isRegistered(String cpf) {
+        return patientRepository.findByCPF(cpf).isPresent();
     }
 
     @Override
     public boolean register(Patient patient) {
-        patientRepository.register(patient);
+        patientRepository.save(patient);
         return true;
     }
 

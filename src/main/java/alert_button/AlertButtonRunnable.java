@@ -7,13 +7,13 @@ import java.util.List;
 public class AlertButtonRunnable implements Runnable {
     private final List<AlertButtonObserver> observerList;
     private final DataCenterConnection dataCenterConnection;
-    private final Long id;
+    private final Long code;
     private boolean isRunning;
 
-    public AlertButtonRunnable(List<AlertButtonObserver> observerList, Long id, DataCenterConnection dataCenterConnection) {
+    public AlertButtonRunnable(List<AlertButtonObserver> observerList, Long code, DataCenterConnection dataCenterConnection) {
         this.observerList = observerList;
         this.dataCenterConnection = dataCenterConnection;
-        this.id = id;
+        this.code = code;
         isRunning = true;
     }
 
@@ -27,8 +27,8 @@ public class AlertButtonRunnable implements Runnable {
             try {
                 Thread.sleep(5000);
                 if (this.shouldReport()) {
-                    dataCenterConnection.getButtonLogController().saveLog(id, "botão disparado");
-                    observerList.forEach(AlertButtonObserver::alert);
+                    dataCenterConnection.getButtonLogController().saveLog(code, "botão disparado");
+                    observerList.forEach(observer -> observer.alert(this.code));
                 }
             } catch (InterruptedException ignored) { }
         }

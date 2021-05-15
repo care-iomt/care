@@ -23,6 +23,6 @@ public class PatientLogControllerImpl implements PatientLogController {
 
     @Override
     public List<PatientLog> getLogs(Long patientId) {
-        return patientLogRepository.getAll(patientId);
+        return patientLogRepository.findAllByPatientId(patientId);
     }
 }

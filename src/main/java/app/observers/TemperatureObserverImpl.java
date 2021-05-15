@@ -1,4 +1,4 @@
-package app;
+package app.observers;
 
 import temperature_monitor.TemperatureAlertType;
 import temperature_monitor.TemperatureObserver;

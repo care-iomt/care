@@ -35,4 +35,16 @@ public interface BloodPressureMonitor {
      * @return estado atual
      */
     BloodPressureState getCurrentState();
+
+    /**
+     * Retorna o código do dispositivo
+     * @return código do dispositivo
+     */
+    Long getCode();
+
+    /**
+     * Retorna se o dispositivo está sendo utilizado
+     * @return código do dispositivo
+     */
+    boolean isUsed();
 }
