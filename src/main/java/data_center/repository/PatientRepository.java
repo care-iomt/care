@@ -18,4 +18,9 @@ public class PatientRepository {
         return patients.stream()
                 .filter(patient -> patient.getCpf().equals(cpf)).findFirst();
     }
+
+    public Optional<Patient> findById(Long id) {
+        return patients.stream()
+                .filter(patient -> patient.getPatientId().equals(id)).findFirst();
+    }
 }

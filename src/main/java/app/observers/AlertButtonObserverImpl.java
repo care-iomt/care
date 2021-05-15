@@ -1,10 +1,15 @@
 package app.observers;
 
 import alert_button.AlertButtonObserver;
+import app.ui.Notifier;
 
-public class AlertButtonObserverImpl implements AlertButtonObserver {
+public class AlertButtonObserverImpl extends ObserverImpl implements AlertButtonObserver {
+    public AlertButtonObserverImpl(Long patientId) {
+        super(patientId);
+    }
+
     @Override
     public void alert(Long buttonCode) {
-        System.out.println("Alerta do botão");
+        Notifier.alertDoctor("EmergencyButton", "COD "+buttonCode);
     }
 }

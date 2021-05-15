@@ -1,18 +1,37 @@
 package app.ui;
 
+import javax.swing.*;
+
 public class MainUI extends javax.swing.JFrame {
-    
+
+    private static MainUI instance;
+
     private final PatientRegisterUI patientRegisterUI;
     private final PatientSearchUI patientSearchUI;
+
+    private NotificationReceiver notificationReceiver;
 
     /**
      * Creates new form MainUI
      */
     public MainUI() {
-        patientRegisterUI = new PatientRegisterUI();
-        patientSearchUI = new PatientSearchUI();
+        this.patientRegisterUI = new PatientRegisterUI();
+        this.patientSearchUI = new PatientSearchUI();
+        this.notificationReceiver = new NotificationReceiverImpl(this);
 
         initComponents();
+    }
+
+    public static MainUI getInstance() {
+        if (instance == null) {
+            instance = new MainUI();
+        }
+
+        return instance;
+    }
+
+    public NotificationReceiver getNotificationReceiver() {
+        return notificationReceiver;
     }
 
     /**

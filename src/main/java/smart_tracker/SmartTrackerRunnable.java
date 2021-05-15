@@ -29,7 +29,7 @@ public class SmartTrackerRunnable implements Runnable {
                 if (alertType != null) {
                     dataCenterConnection.getPatientLogController()
                             .saveLog(patientId, "Smart Tracker", "Alert code: "+alertType.getValue());
-                    observerList.forEach(observer -> observer.alert(alertType));
+                    observerList.forEach(observer -> observer.alert(alertType, patientId));
                 }
             } catch (InterruptedException ignored) { }
         }
@@ -37,11 +37,11 @@ public class SmartTrackerRunnable implements Runnable {
 
     private SmartTrackerAlertType getAlertType() {
         int alertCode = (int) (Math.random() * 21);
-        return switch (alertCode) {
-            case 1 -> SmartTrackerAlertType.FEVER;
-            case 2 -> SmartTrackerAlertType.TACHYCARDIA;
-            case 3 -> SmartTrackerAlertType.BRADYCARDIA;
-            default -> null;
-        };
+        switch (alertCode) {
+            case 1: return SmartTrackerAlertType.FEVER;
+            case 2: return SmartTrackerAlertType.TACHYCARDIA;
+            case 3: return SmartTrackerAlertType.BRADYCARDIA;
+            default: return null;
+        }
     }
 }

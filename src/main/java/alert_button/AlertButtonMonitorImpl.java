@@ -12,7 +12,7 @@ public class AlertButtonMonitorImpl implements AlertButtonMonitor {
     public AlertButtonMonitorImpl(DataCenterConnection dataCenterConnection, Long code) {
         this.code = code;
         observerList = new ArrayList<>();
-        final AlertButtonRunnable runnable = new AlertButtonRunnable(observerList, code, dataCenterConnection);
+        final AlertButtonRunnable runnable = new AlertButtonRunnable(observerList, code);
         final Thread thread = new Thread(runnable);
         thread.start();
     }

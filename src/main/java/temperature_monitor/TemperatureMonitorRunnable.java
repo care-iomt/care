@@ -29,7 +29,7 @@ public class TemperatureMonitorRunnable implements Runnable {
                 if (alertType != null) {
                     dataCenterConnection.getPatientLogController()
                             .saveLog(patientId, "Temperature Monitor", "Alert code: "+alertType.getValue());
-                    observerList.forEach(observer -> observer.alert(alertType));
+                    observerList.forEach(observer -> observer.alert(alertType, patientId));
                 }
             } catch (InterruptedException ignored) { }
         }
@@ -37,10 +37,10 @@ public class TemperatureMonitorRunnable implements Runnable {
 
     private TemperatureAlertType getAlertType() {
         int alertCode = (int) (Math.random() * 21);
-        return switch (alertCode) {
-            case 1 -> TemperatureAlertType.MAX;
-            case 2 -> TemperatureAlertType.MIN;
-            default -> null;
-        };
+        switch (alertCode) {
+            case 1: return TemperatureAlertType.MAX;
+            case 2: return TemperatureAlertType.MIN;
+            default: return null;
+        }
     }
 }

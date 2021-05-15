@@ -19,6 +19,12 @@ public class PatientControllerImpl implements PatientController {
     }
 
     @Override
+    public Patient getById(Long patientId) {
+        Optional<Patient> patientSearch = patientRepository.findById(patientId);
+        return patientSearch.orElse(null);
+    }
+
+    @Override
     public boolean isRegistered(String cpf) {
         return patientRepository.findByCPF(cpf).isPresent();
     }

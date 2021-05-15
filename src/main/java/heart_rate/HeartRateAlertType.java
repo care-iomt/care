@@ -1,20 +1,22 @@
 package heart_rate;
 
 public enum HeartRateAlertType {
-    MAX(1),
-    MIN(2);
+    MAX(1, "Batimento cardíaco Máximo"),
+    MIN(2, "Batimento cardíaco Mínimo");
 
-    private int value;
+    private final int value;
+    private final String description;
 
-    HeartRateAlertType(int value) {
+    HeartRateAlertType(int value, String description) {
         this.value = value;
+        this.description = description;
     }
 
     public int getValue() {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public String getDescription() {
+        return description;
     }
 }

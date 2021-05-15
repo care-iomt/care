@@ -1,21 +1,24 @@
 package smart_tracker;
 
 public enum SmartTrackerAlertType {
-    FEVER(1),
-    TACHYCARDIA(2),
-    BRADYCARDIA(3);
+    FEVER(1, "Febre"),
+    TACHYCARDIA(2, "Taquicardia"),
+    BRADYCARDIA(3, "Bradicardia");
 
-    private int value;
+    private final int value;
+    private final String description;
 
-    SmartTrackerAlertType(int value) {
+    SmartTrackerAlertType(int value, String description) {
         this.value = value;
+        this.description = description;
     }
 
     public int getValue() {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public String getDescription() {
+        return description;
     }
+
 }
