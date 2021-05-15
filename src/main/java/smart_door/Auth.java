@@ -1,13 +1,13 @@
 package smart_door;
 
 public class Auth {
-    private final Long permission;
+    private final Permission permission;
 
-    public Auth(Long permission) {
+    public Auth(Permission permission) {
         this.permission = permission;
     }
 
-    public Long getPermission() {
+    public Permission getPermission() {
         return permission;
     }
 }

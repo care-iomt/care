@@ -3,6 +3,7 @@ package app.connector;
 import app.observers.HeartRateObserverImpl;
 import data_center.DataCenterConnection;
 import data_center.entities.Patient;
+import heart_rate.HeartRateConfig;
 import heart_rate.HeartRateMonitor;
 import heart_rate.HeartRateMonitorImpl;
 
@@ -57,8 +58,10 @@ public class HeartRateConnector {
                 .filter(heartRateMonitor -> heartRateMonitor.getCode().equals(code)).findFirst();
     }
 
-    public void attachPatientToMonitor(Patient patient, Long code, HeartRateObserverImpl heartRateObserver) {
+    public void attachPatientToMonitor(Patient patient, Long code, HeartRateObserverImpl heartRateObserver,
+                                       HeartRateConfig config) {
         getByCode(code).ifPresent(heartRateMonitor -> {
+            heartRateMonitor.configure(config);
             heartRateMonitor.addObserver(heartRateObserver);
             heartRateMonitor.start(patient.getPatientId());
         });

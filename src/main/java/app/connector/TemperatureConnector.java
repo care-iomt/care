@@ -4,6 +4,7 @@ import app.observers.TemperatureObserverImpl;
 import data_center.DataCenterConnection;
 import data_center.entities.Patient;
 import smart_tracker.SmartTrackerMonitor;
+import temperature_monitor.TemperatureConfig;
 import temperature_monitor.TemperatureMonitor;
 import temperature_monitor.TemperatureMonitorImpl;
 import java.util.ArrayList;
@@ -57,8 +58,10 @@ public class TemperatureConnector {
                 .filter(heartRateMonitor -> heartRateMonitor.getCode().equals(code)).findFirst();
     }
 
-    public void attachPatientToMonitor(Patient patient, Long code, TemperatureObserverImpl temperatureObserver) {
+    public void attachPatientToMonitor(Patient patient, Long code, TemperatureObserverImpl temperatureObserver,
+                                       TemperatureConfig config) {
         getByCode(code).ifPresent(temperatureMonitor -> {
+            temperatureMonitor.configure(config);
             temperatureMonitor.addObserver(temperatureObserver);
             temperatureMonitor.start(patient.getPatientId());
         });

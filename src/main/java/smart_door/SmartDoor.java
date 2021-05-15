@@ -1,5 +1,5 @@
 package smart_door;
 
 public interface SmartDoor {
-    void auth(Auth auth);
+    boolean auth(Auth auth);
 }

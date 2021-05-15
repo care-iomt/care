@@ -3,6 +3,7 @@ package app.connector;
 import app.observers.SmartTrackerObserverImpl;
 import data_center.DataCenterConnection;
 import data_center.entities.Patient;
+import smart_tracker.SmartTrackerConfig;
 import smart_tracker.SmartTrackerMonitor;
 import smart_tracker.SmartTrackerMonitorImpl;
 import java.util.ArrayList;
@@ -57,9 +58,11 @@ public class SmartTrackerConnector {
                 .filter(smartTrackerMonitor -> smartTrackerMonitor.getCode().equals(code)).findFirst();
     }
 
-    public void attachPatientToMonitor(Patient patient, Long code, SmartTrackerObserverImpl observer) {
+    public void attachPatientToMonitor(Patient patient, Long code, SmartTrackerObserverImpl observer,
+                                       SmartTrackerConfig config) {
         getByCode(code).ifPresent(smartTrackerMonitor -> {
             smartTrackerMonitor.addObserver(observer);
+            smartTrackerMonitor.configure(config);
             smartTrackerMonitor.start(patient.getPatientId());
         });
     }

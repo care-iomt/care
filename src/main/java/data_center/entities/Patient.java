@@ -3,9 +3,9 @@ package data_center.entities;
 import app.utils.StringUtils;
 
 public class Patient {
-    Long patientId;
-    String name;
-    String cpf;
+    private Long patientId;
+    private String name;
+    private String cpf;
 
     public Patient(String name, String cpf) {
         this.patientId = StringUtils.cpfToLong(cpf);
