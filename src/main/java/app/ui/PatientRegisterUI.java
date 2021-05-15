@@ -131,6 +131,8 @@ public class PatientRegisterUI extends javax.swing.JFrame {
         if (isSuccessful) {
             JOptionPane.showMessageDialog(this, "Paciente inserido com sucesso! xD");
             this.setVisible(false);
+            nameTextField.setText("");
+            cpfTextField.setText("");
         } else {
             JOptionPane.showMessageDialog(this, "Não foi possível registar o paciente!", "Erro ao inserir!", JOptionPane.ERROR_MESSAGE);
         }
