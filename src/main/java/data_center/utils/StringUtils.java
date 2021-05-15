@@ -1,4 +1,4 @@
-package app.utils;
+package data_center.utils;
 
 public class StringUtils {
 
