@@ -30,7 +30,8 @@ public class BloodPressureRunnable implements Runnable {
                 final BloodPressureAlertType alertType = getAlertType();
                 if (alertType != null) {
                     dataCenterConnection.getPatientLogController()
-                            .saveLog(patientId, "Blood Pressure", "Alert code: "+alertType.getValue());
+                            .saveLog(patientId, "Blood Pressure", "Alert ("+alertType.getValue()+"): "+
+                                    alertType);
                     observerList.forEach(observer -> observer.alert(alertType));
                 }
             } catch (InterruptedException ignored) { }
