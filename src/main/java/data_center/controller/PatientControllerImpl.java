@@ -2,6 +2,7 @@ package data_center.controller;
 
 import data_center.entities.Patient;
 import data_center.repository.PatientRepository;
+import data_center.utils.StringUtils;
 
 import java.util.Optional;
 
@@ -31,8 +32,11 @@ public class PatientControllerImpl implements PatientController {
 
     @Override
     public boolean register(Patient patient) {
-        patientRepository.save(patient);
-        return true;
+        if (StringUtils.isValidCpf(patient.getCpf())) {
+            patientRepository.save(patient);
+            return true;
+        } else {
+            return false;
+        }
     }
-
 }
