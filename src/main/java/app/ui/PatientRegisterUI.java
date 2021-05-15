@@ -118,6 +118,7 @@ public class PatientRegisterUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
+        // TODO add your handling code here:
         DataCenterConnection dataCenterConnection = DataCenterConnection.getInstance();
         PatientController patientController = dataCenterConnection.getPatientController();
 
@@ -130,8 +131,6 @@ public class PatientRegisterUI extends javax.swing.JFrame {
         if (isSuccessful) {
             JOptionPane.showMessageDialog(this, "Paciente inserido com sucesso!");
             this.setVisible(false);
-            nameTextField.setText("");
-            cpfTextField.setText("");
         } else {
             JOptionPane.showMessageDialog(this, "Não foi possível registar o paciente!", "Erro ao inserir!", JOptionPane.ERROR_MESSAGE);
         }
