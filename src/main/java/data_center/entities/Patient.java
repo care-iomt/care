@@ -6,6 +6,7 @@ public class Patient extends Person {
     private Long patientId;
 
     public Patient(String name, String cpf) {
+        super(name, cpf);
         this.patientId = StringUtils.cpfToLong(cpf);
     }
 
