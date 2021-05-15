@@ -10,4 +10,9 @@ public class HeartRateState {
     public void setHeartRate(Integer heartRate) {
         this.heartRate = heartRate;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(heartRate);
+    }
 }

@@ -129,7 +129,7 @@ public class PatientRegisterUI extends javax.swing.JFrame {
         boolean isSuccessful = patientController.register(patient);
 
         if (isSuccessful) {
-            JOptionPane.showMessageDialog(this, "Paciente inserido com sucesso!");
+            JOptionPane.showMessageDialog(this, "Paciente inserido com sucesso! xD");
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Não foi possível registar o paciente!", "Erro ao inserir!", JOptionPane.ERROR_MESSAGE);

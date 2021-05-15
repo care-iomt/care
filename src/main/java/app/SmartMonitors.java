@@ -1,28 +1,23 @@
 package app;
 
-import app.ui.MainUI;
-
-import javax.swing.*;
-
 public enum SmartMonitors {
-    HEART_RATE("Monitor Cardíaco", MainUI.getInstance()),
-    SMART_TRACKER("Smart Tracker", MainUI.getInstance()),
-    BLOOD_PRESSURE("Pressao Arterial", MainUI.getInstance()),
-    TEMPERATURE_MONITOR("Monitor de Temperatura", MainUI.getInstance());
+    HEART_RATE("Monitor Cardíaco"),
+    SMART_TRACKER("Smart Tracker"),
+    BLOOD_PRESSURE("Pressao Arterial"),
+    TEMPERATURE_MONITOR("Monitor de Temperatura");
 
     private final String name;
-    private final JFrame guiClass;
+//    private final JFrame guiClass;
 
-    SmartMonitors(String name, JFrame guiClass) {
+    SmartMonitors(String name) {
         this.name = name;
-        this.guiClass = guiClass;
     }
 
     public String getName() {
         return name;
     }
 
-    public JFrame getGuiClass() {
-        return guiClass;
-    }
+//    public JFrame getGuiClass() {
+//        return guiClass;
+//    }
 }
