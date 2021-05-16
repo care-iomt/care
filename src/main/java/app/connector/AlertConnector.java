@@ -21,14 +21,14 @@ public class AlertConnector {
         dataCenterConnection = DataCenterConnection.getInstance();
         alertButtonMonitors = new ArrayList<>();
 
-        final AlertButtonMonitor alertButtonMonitor1 = new AlertButtonMonitorImpl(dataCenterConnection, 121212L);
-        final AlertButtonMonitor alertButtonMonitor2 = new AlertButtonMonitorImpl(dataCenterConnection, 321312L);
-        final AlertButtonMonitor alertButtonMonitor3 = new AlertButtonMonitorImpl(dataCenterConnection, 121214L);
-        final AlertButtonMonitor alertButtonMonitor4 = new AlertButtonMonitorImpl(dataCenterConnection, 323422L);
-        final AlertButtonMonitor alertButtonMonitor5 = new AlertButtonMonitorImpl(dataCenterConnection, 435434L);
-        final AlertButtonMonitor alertButtonMonitor6 = new AlertButtonMonitorImpl(dataCenterConnection, 321565L);
-        final AlertButtonMonitor alertButtonMonitor7 = new AlertButtonMonitorImpl(dataCenterConnection, 433556L);
-        final AlertButtonMonitor alertButtonMonitor8 = new AlertButtonMonitorImpl(dataCenterConnection, 958696L);
+        final AlertButtonMonitor alertButtonMonitor1 = new AlertButtonMonitorImpl(121212L);
+        final AlertButtonMonitor alertButtonMonitor2 = new AlertButtonMonitorImpl(321312L);
+        final AlertButtonMonitor alertButtonMonitor3 = new AlertButtonMonitorImpl(121214L);
+        final AlertButtonMonitor alertButtonMonitor4 = new AlertButtonMonitorImpl(323422L);
+        final AlertButtonMonitor alertButtonMonitor5 = new AlertButtonMonitorImpl(435434L);
+        final AlertButtonMonitor alertButtonMonitor6 = new AlertButtonMonitorImpl(321565L);
+        final AlertButtonMonitor alertButtonMonitor7 = new AlertButtonMonitorImpl(433556L);
+        final AlertButtonMonitor alertButtonMonitor8 = new AlertButtonMonitorImpl(958696L);
 
         alertButtonMonitors.add(alertButtonMonitor1);
         alertButtonMonitors.add(alertButtonMonitor2);

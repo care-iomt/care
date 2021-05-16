@@ -1,10 +1,7 @@
 package app.connector;
 
 import app.observers.TemperatureObserverImpl;
-import data_center.DataCenterConnection;
 import data_center.entities.Patient;
-import heart_rate.HeartRateMonitor;
-import smart_tracker.SmartTrackerMonitor;
 import temperature_monitor.TemperatureConfig;
 import temperature_monitor.TemperatureMonitor;
 import temperature_monitor.TemperatureMonitorImpl;
@@ -18,7 +15,6 @@ public class TemperatureConnector {
     private final List<TemperatureMonitor> temperatureMonitors;
 
     private TemperatureConnector() {
-        final DataCenterConnection dataCenterConnection = DataCenterConnection.getInstance();
         temperatureMonitors = new ArrayList<>();
         final TemperatureMonitor heartRateMonitor1 = new TemperatureMonitorImpl(121212L);
         final TemperatureMonitor heartRateMonitor2 = new TemperatureMonitorImpl(321312L);

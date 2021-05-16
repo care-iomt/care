@@ -8,7 +8,6 @@ package app.ui;
 import data_center.DataCenterConnection;
 import data_center.controller.PatientController;
 import data_center.entities.Patient;
-
 import javax.swing.*;
 
 /**

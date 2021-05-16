@@ -3,7 +3,6 @@ package data_center.controller;
 import data_center.entities.Patient;
 import data_center.repository.PatientRepository;
 import data_center.utils.StringUtils;
-
 import java.util.Optional;
 
 public class PatientControllerImpl implements PatientController {

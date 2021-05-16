@@ -1,6 +1,6 @@
 package data_center.entities;
 
-import app.utils.StringUtils;
+import data_center.utils.StringUtils;
 
 public class Patient extends Person {
     private Long patientId;

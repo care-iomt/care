@@ -1,7 +1,5 @@
 package alert_button;
 
-import data_center.DataCenterConnection;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +7,7 @@ public class AlertButtonMonitorImpl implements AlertButtonMonitor {
     private final List<AlertButtonObserver> observerList;
     private final Long code;
 
-    public AlertButtonMonitorImpl(DataCenterConnection dataCenterConnection, Long code) {
+    public AlertButtonMonitorImpl(Long code) {
         this.code = code;
         observerList = new ArrayList<>();
         final AlertButtonRunnable runnable = new AlertButtonRunnable(observerList, code);

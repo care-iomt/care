@@ -24,7 +24,7 @@ public class SmartTrackerRunnable implements Runnable {
     public void run() {
         while (isRunning) {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(60000);
                 final SmartTrackerAlertType alertType = getAlertType();
                 if (alertType != null) {
                     dataCenterConnection.getPatientLogController()
@@ -36,12 +36,15 @@ public class SmartTrackerRunnable implements Runnable {
     }
 
     private SmartTrackerAlertType getAlertType() {
-        int alertCode = (int) (Math.random() * 21);
-        switch (alertCode) {
-            case 1: return SmartTrackerAlertType.FEVER;
-            case 2: return SmartTrackerAlertType.TACHYCARDIA;
-            case 3: return SmartTrackerAlertType.BRADYCARDIA;
-            default: return null;
+        final double rand = Math.random();
+        if (rand < 0.925) {
+            return null;
+        }  else if (rand < 0.95) {
+            return SmartTrackerAlertType.FEVER;
+        }  else if (rand < 0.975) {
+            return SmartTrackerAlertType.TACHYCARDIA;
+        } else {
+            return SmartTrackerAlertType.BRADYCARDIA;
         }
     }
 }

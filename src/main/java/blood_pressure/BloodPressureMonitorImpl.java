@@ -37,7 +37,7 @@ public class BloodPressureMonitorImpl implements BloodPressureMonitor {
 
     @Override
     public void start(Long patientId) {
-        runnable = new BloodPressureRunnable(observerList, patientId);
+        runnable = new BloodPressureRunnable(observerList, patientId, config, state);
         final Thread thread = new Thread(runnable);
         thread.start();
         isRunning = true;

@@ -1,7 +1,5 @@
 package smart_camera;
 
-import temperature_monitor.TemperatureMonitorRunnable;
-
 import java.util.ArrayList;
 import java.util.List;
 

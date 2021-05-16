@@ -9,7 +9,7 @@ public class TemperatureMonitorImpl implements TemperatureMonitor {
     private final Long code;
     private Long patientId;
     private TemperatureConfig config;
-    private TemperatureMonitorRunnable runnable;
+    private TemperatureRunnable runnable;
     private boolean isRunning;
 
     public TemperatureMonitorImpl(Long code) {
@@ -32,7 +32,7 @@ public class TemperatureMonitorImpl implements TemperatureMonitor {
 
     @Override
     public void start(Long patientId) {
-        runnable = new TemperatureMonitorRunnable(observerList, patientId);
+        runnable = new TemperatureRunnable(observerList, patientId, config, state);
         final Thread thread = new Thread(runnable);
         thread.start();
         isRunning = true;

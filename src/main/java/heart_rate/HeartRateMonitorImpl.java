@@ -34,7 +34,7 @@ public class HeartRateMonitorImpl implements HeartRateMonitor {
 
     @Override
     public void start(Long patientId) {
-        runnable = new HeartRateRunnable(observerList, patientId);
+        runnable = new HeartRateRunnable(observerList, patientId, state, config);
         final Thread thread = new Thread(runnable);
         thread.start();
         this.patientId = patientId;
