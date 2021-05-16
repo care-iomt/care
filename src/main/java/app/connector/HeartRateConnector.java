@@ -17,11 +17,11 @@ public class HeartRateConnector {
 
     private HeartRateConnector() {
         heartRateMonitors = new ArrayList<>();
-        final HeartRateMonitor heartRateMonitor1 = new HeartRateMonitorImpl(121212L);
+        final HeartRateMonitor heartRateMonitor1 = new HeartRateMonitorImpl(435434L);
         final HeartRateMonitor heartRateMonitor2 = new HeartRateMonitorImpl(321312L);
         final HeartRateMonitor heartRateMonitor3 = new HeartRateMonitorImpl(121214L);
         final HeartRateMonitor heartRateMonitor4 = new HeartRateMonitorImpl(323422L);
-        final HeartRateMonitor heartRateMonitor5 = new HeartRateMonitorImpl(435434L);
+        final HeartRateMonitor heartRateMonitor5 = new HeartRateMonitorImpl(121212L);
         final HeartRateMonitor heartRateMonitor6 = new HeartRateMonitorImpl(321565L);
         final HeartRateMonitor heartRateMonitor7 = new HeartRateMonitorImpl(433556L);
         final HeartRateMonitor heartRateMonitor8 = new HeartRateMonitorImpl(958696L);

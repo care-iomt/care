@@ -19,14 +19,14 @@ public class SmartTrackerConnector {
         final DataCenterConnection dataCenterConnection = DataCenterConnection.getInstance();
         smartTrackerMonitors = new ArrayList<>();
 
-        final SmartTrackerMonitor smartTrackerConnector1 = new SmartTrackerMonitorImpl(dataCenterConnection, 121212L);
-        final SmartTrackerMonitor smartTrackerConnector2 = new SmartTrackerMonitorImpl(dataCenterConnection, 321312L);
-        final SmartTrackerMonitor smartTrackerConnector3 = new SmartTrackerMonitorImpl(dataCenterConnection, 121214L);
-        final SmartTrackerMonitor smartTrackerConnector4 = new SmartTrackerMonitorImpl(dataCenterConnection, 323422L);
-        final SmartTrackerMonitor smartTrackerConnector5 = new SmartTrackerMonitorImpl(dataCenterConnection, 435434L);
-        final SmartTrackerMonitor smartTrackerConnector6 = new SmartTrackerMonitorImpl(dataCenterConnection, 321565L);
-        final SmartTrackerMonitor smartTrackerConnector7 = new SmartTrackerMonitorImpl(dataCenterConnection, 433556L);
-        final SmartTrackerMonitor smartTrackerConnector8 = new SmartTrackerMonitorImpl(dataCenterConnection, 958696L);
+        final SmartTrackerMonitor smartTrackerConnector1 = new SmartTrackerMonitorImpl(dataCenterConnection, 45245454L);
+        final SmartTrackerMonitor smartTrackerConnector2 = new SmartTrackerMonitorImpl(dataCenterConnection, 45454454L);
+        final SmartTrackerMonitor smartTrackerConnector3 = new SmartTrackerMonitorImpl(dataCenterConnection, 87578575L);
+        final SmartTrackerMonitor smartTrackerConnector4 = new SmartTrackerMonitorImpl(dataCenterConnection, 54457772L);
+        final SmartTrackerMonitor smartTrackerConnector5 = new SmartTrackerMonitorImpl(dataCenterConnection, 24524524L);
+        final SmartTrackerMonitor smartTrackerConnector6 = new SmartTrackerMonitorImpl(dataCenterConnection, 45244257L);
+        final SmartTrackerMonitor smartTrackerConnector7 = new SmartTrackerMonitorImpl(dataCenterConnection, 78758725L);
+        final SmartTrackerMonitor smartTrackerConnector8 = new SmartTrackerMonitorImpl(dataCenterConnection, 45254244L);
 
         smartTrackerMonitors.add(smartTrackerConnector1);
         smartTrackerMonitors.add(smartTrackerConnector2);

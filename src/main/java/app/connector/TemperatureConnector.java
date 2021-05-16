@@ -16,14 +16,14 @@ public class TemperatureConnector {
 
     private TemperatureConnector() {
         temperatureMonitors = new ArrayList<>();
-        final TemperatureMonitor heartRateMonitor1 = new TemperatureMonitorImpl(121212L);
+        final TemperatureMonitor heartRateMonitor1 = new TemperatureMonitorImpl(958696L);
         final TemperatureMonitor heartRateMonitor2 = new TemperatureMonitorImpl(321312L);
         final TemperatureMonitor heartRateMonitor3 = new TemperatureMonitorImpl(121214L);
         final TemperatureMonitor heartRateMonitor4 = new TemperatureMonitorImpl(323422L);
         final TemperatureMonitor heartRateMonitor5 = new TemperatureMonitorImpl(435434L);
         final TemperatureMonitor heartRateMonitor6 = new TemperatureMonitorImpl(321565L);
         final TemperatureMonitor heartRateMonitor7 = new TemperatureMonitorImpl(433556L);
-        final TemperatureMonitor heartRateMonitor8 = new TemperatureMonitorImpl(958696L);
+        final TemperatureMonitor heartRateMonitor8 = new TemperatureMonitorImpl(121212L);
 
         temperatureMonitors.add(heartRateMonitor1);
         temperatureMonitors.add(heartRateMonitor2);
