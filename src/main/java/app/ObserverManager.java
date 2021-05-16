@@ -13,6 +13,8 @@ import java.util.Optional;
 
 public class ObserverManager {
 
+    private static ObserverManager instance;
+
     private List<AlertButtonObserverImpl> alertButtonObservers;
     private List<BloodPressureObserverImpl> bloodPressureObservers;
     private List<SmartTrackerObserverImpl> smartTrackerObservers;
@@ -25,6 +27,14 @@ public class ObserverManager {
         this.smartTrackerObservers = new ArrayList<>();
         this.temperatureObservers = new ArrayList<>();
         this.heartRateObservers = new ArrayList<>();
+    }
+
+    public static ObserverManager getInstance() {
+        if (instance == null) {
+            instance = new ObserverManager();
+        };
+
+        return instance;
     }
 
     public void add(AlertButtonObserverImpl alertButtonObserver) {

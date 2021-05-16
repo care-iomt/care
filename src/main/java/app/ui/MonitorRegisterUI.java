@@ -5,17 +5,86 @@
  */
 package app.ui;
 
+import app.SmartMonitors;
+import app.connector.BloodPressureConnector;
+import app.connector.HeartRateConnector;
+import app.connector.SmartTrackerConnector;
+import app.connector.TemperatureConnector;
+import blood_pressure.BloodPressureMonitor;
+import data_center.entities.Patient;
+import heart_rate.HeartRateMonitor;
+import smart_tracker.SmartTrackerMonitor;
+import temperature_monitor.TemperatureMonitor;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  *
  * @author wmespindula
  */
 public class MonitorRegisterUI extends javax.swing.JFrame {
 
+    private Patient patient;
+
     /**
      * Creates new form MainUI
      */
-    public MonitorRegisterUI() {
+    public MonitorRegisterUI(Patient patient) {
         initComponents();
+
+        this.patient = patient;
+
+        Arrays.stream(SmartMonitors.values())
+                .forEach(smartMonitor -> monitorTypeSelector.addItem(smartMonitor.getName()));
+        refreshAvailableMonitorsByType(monitorTypeSelector.getSelectedItem());
+
+    }
+
+    private void refreshAvailableMonitorsByType(Object selectedItem) {
+        SmartMonitors type = Arrays.stream(SmartMonitors.values()).filter(item  -> item.getName().equals(selectedItem))
+                .findFirst().get();
+        switch (type){
+            case HEART_RATE:
+                HeartRateConnector heartRateConnector = HeartRateConnector.getInstance();
+                List<String> heartRateMonitors = heartRateConnector.findAllNotUsed().stream()
+                                    .map(item -> item.getCode().toString())
+                                    .collect(Collectors.toList());
+                availableSensorsList.setListData(heartRateMonitors.toArray(new String[heartRateMonitors.size()]));
+                break;
+
+
+            case BLOOD_PRESSURE:
+                BloodPressureConnector bloodPressureConnector = BloodPressureConnector.getInstance();
+                List<String> bloodPressureMonitors = bloodPressureConnector.findAllNotUsed().stream()
+                        .map(item -> item.getCode().toString())
+                        .collect(Collectors.toList());
+                availableSensorsList.setListData(bloodPressureMonitors.toArray(new String[bloodPressureMonitors.size()]));
+                break;
+
+
+            case SMART_TRACKER:
+                SmartTrackerConnector smartTrackerConnector = SmartTrackerConnector.getInstance();
+                List<String> smartTrackerMonitor = smartTrackerConnector.findAllNotUsed().stream()
+                        .map(item -> item.getCode().toString())
+                        .collect(Collectors.toList());
+                availableSensorsList.setListData(smartTrackerMonitor.toArray(new String[smartTrackerMonitor.size()]));
+                break;
+
+            case TEMPERATURE_MONITOR:
+                TemperatureConnector temperatureConnector = TemperatureConnector.getInstance();
+                List<String> temperatureMonitors = temperatureConnector.findAllNotUsed().stream()
+                        .map(item -> item.getCode().toString())
+                        .collect(Collectors.toList());
+                availableSensorsList.setListData(temperatureMonitors.toArray(new String[temperatureMonitors.size()]));
+                break;
+
+            default:
+                availableSensorsList.setListData(new String[]{});
+                break;
+
+        }
     }
 
     /**
@@ -32,11 +101,13 @@ public class MonitorRegisterUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        availableSensorsList = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        monitorTypeSelector = new javax.swing.JComboBox<>();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 32767));
-        jButton1 = new javax.swing.JButton();
+        addMonitorButton = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Adicionar Monitor à Paciente");
@@ -50,18 +121,27 @@ public class MonitorRegisterUI extends javax.swing.JFrame {
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
         jPanel1.add(jPanel3);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        availableSensorsList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(availableSensorsList);
 
         jLabel2.setText("Tipo de Sensor:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        monitorTypeSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                monitorTypeSelectorActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Adicionar Monitor");
+        addMonitorButton.setText("Adicionar Monitor");
+        addMonitorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addMonitorButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,13 +158,13 @@ public class MonitorRegisterUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
+                            .addComponent(addMonitorButton)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(0, 0, 0)
                                 .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(monitorTypeSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -98,30 +178,79 @@ public class MonitorRegisterUI extends javax.swing.JFrame {
                         .addGap(5, 5, 5)
                         .addComponent(jLabel2))
                     .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(monitorTypeSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(addMonitorButton)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void monitorTypeSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monitorTypeSelectorActionPerformed
+        refreshAvailableMonitorsByType(monitorTypeSelector.getSelectedItem());
+    }//GEN-LAST:event_monitorTypeSelectorActionPerformed
+
+    private void addMonitorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMonitorButtonActionPerformed
+
+        SmartMonitors type = Arrays.stream(SmartMonitors.values()).filter(item  -> item.getName().equals(monitorTypeSelector.getSelectedItem()))
+                .findFirst().get();
+
+
+        switch (type){
+            case HEART_RATE:
+                HeartRateConnector heartRateConnector = HeartRateConnector.getInstance();
+                Long heartRateMonitorValue = Long.parseLong(availableSensorsList.getSelectedValue());
+                HeartRateMonitor heartRateMonitor = heartRateConnector.getByCode(heartRateMonitorValue).get();
+
+
+                break;
+
+
+            case BLOOD_PRESSURE:
+                BloodPressureConnector bloodPressureConnector = BloodPressureConnector.getInstance();
+                Long bloodPressureMonitorValue = Long.parseLong(availableSensorsList.getSelectedValue());
+                BloodPressureMonitor bloodPressureMonitor = bloodPressureConnector.
+                        getByCode(bloodPressureMonitorValue).get();
+                break;
+
+
+            case SMART_TRACKER:
+                SmartTrackerConnector smartTrackerConnector = SmartTrackerConnector.getInstance();
+                Long smartTrackerMonitorValue = Long.parseLong(availableSensorsList.getSelectedValue());
+                SmartTrackerMonitor smartTrackerMonitor = smartTrackerConnector.getByCode(smartTrackerMonitorValue).get();
+
+                break;
+
+            case TEMPERATURE_MONITOR:
+                TemperatureConnector temperatureConnector = TemperatureConnector.getInstance();
+                Long temperatureMonitorValue = Long.parseLong(availableSensorsList.getSelectedValue());
+                TemperatureMonitor temperatureMonitor = temperatureConnector.getByCode(temperatureMonitorValue).get();
+
+                break;
+
+            default:
+                availableSensorsList.setListData(new String[]{});
+                break;
+
+        }
+    }//GEN-LAST:event_addMonitorButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addMonitorButton;
+    private javax.swing.JList<String> availableSensorsList;
     private javax.swing.Box.Filler filler3;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> monitorTypeSelector;
     // End of variables declaration//GEN-END:variables
 }

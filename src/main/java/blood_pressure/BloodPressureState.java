@@ -19,4 +19,10 @@ public class BloodPressureState {
     public void setDiastolic(Integer diastolic) {
         this.diastolic = diastolic;
     }
+
+    @Override
+    public String toString() {
+        return "Sistólica=" + systolic +
+                "/Diastólica=" + diastolic;
+    }
 }

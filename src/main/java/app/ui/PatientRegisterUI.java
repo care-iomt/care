@@ -128,7 +128,7 @@ public class PatientRegisterUI extends javax.swing.JFrame {
         boolean isSuccessful = patientController.register(patient);
 
         if (isSuccessful) {
-            JOptionPane.showMessageDialog(this, "Paciente inserido com sucesso!");
+            JOptionPane.showMessageDialog(this, "Paciente inserido com sucesso! xD");
             this.setVisible(false);
             nameTextField.setText("");
             cpfTextField.setText("");
