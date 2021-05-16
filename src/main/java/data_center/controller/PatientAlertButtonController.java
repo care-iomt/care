@@ -13,6 +13,13 @@ public interface PatientAlertButtonController {
     void save(Patient patient, Long code);
 
     /**
+     * Remove relacionamento entre AlertButton e Patient
+     * @param patient paciente
+     * @param code código do AlertButton
+     */
+    void delete(Long code);
+
+    /**
      * Busca um relacionamento pelo paciente
      * @param patient paciente
      */

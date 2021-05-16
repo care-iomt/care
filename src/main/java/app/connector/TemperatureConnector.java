@@ -1,7 +1,9 @@
 package app.connector;
 
+import app.observers.SmartTrackerObserverImpl;
 import app.observers.TemperatureObserverImpl;
 import data_center.entities.Patient;
+import smart_tracker.SmartTrackerMonitor;
 import temperature_monitor.TemperatureConfig;
 import temperature_monitor.TemperatureMonitor;
 import temperature_monitor.TemperatureMonitorImpl;
@@ -66,6 +68,13 @@ public class TemperatureConnector {
             temperatureMonitor.configure(config);
             temperatureMonitor.addObserver(temperatureObserver);
             temperatureMonitor.start(patient.getPatientId());
+        });
+    }
+
+    public void detachPatientOfMonitor(Long code, TemperatureObserverImpl temperatureObserver) {
+        final Optional<TemperatureMonitor> temperatureMonitorOptional = getByCode(code);
+        temperatureMonitorOptional.ifPresent(temperatureMonitor -> {
+            temperatureMonitor.removeObserver(temperatureObserver);
         });
     }
 }

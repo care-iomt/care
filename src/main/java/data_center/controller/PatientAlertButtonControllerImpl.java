@@ -20,6 +20,11 @@ public class PatientAlertButtonControllerImpl implements PatientAlertButtonContr
     }
 
     @Override
+    public void delete(Long code) {
+        patientAlertButtonRepository.delete(code);
+    }
+
+    @Override
     public PatientAlertButton getByPatient(Patient patient) {
         return patientAlertButtonRepository.findByPatient(patient).orElse(null);
     }

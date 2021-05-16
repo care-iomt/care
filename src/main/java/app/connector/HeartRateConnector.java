@@ -5,7 +5,6 @@ import data_center.entities.Patient;
 import heart_rate.HeartRateConfig;
 import heart_rate.HeartRateMonitor;
 import heart_rate.HeartRateMonitorImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -67,6 +66,13 @@ public class HeartRateConnector {
             heartRateMonitor.configure(config);
             heartRateMonitor.addObserver(heartRateObserver);
             heartRateMonitor.start(patient.getPatientId());
+        });
+    }
+
+    public void detachPatientOfMonitor(Long code, HeartRateObserverImpl heartRateObserver) {
+        final Optional<HeartRateMonitor> heartRateMonitorOptional = getByCode(code);
+        heartRateMonitorOptional.ifPresent(heartRateMonitor -> {
+            heartRateMonitor.removeObserver(heartRateObserver);
         });
     }
 }

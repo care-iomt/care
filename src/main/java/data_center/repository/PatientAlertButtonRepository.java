@@ -15,8 +15,7 @@ public class PatientAlertButtonRepository {
     }
 
     public void save(Patient patient, Long code) {
-        final Optional<PatientAlertButton> patientAlertButtonSearch = patientAlertButtons
-                .stream().filter(patientAlertButton -> patientAlertButton.getAlertButtonCode().equals(code)).findFirst();
+        final Optional<PatientAlertButton> patientAlertButtonSearch = findByCode(code);
         if (patientAlertButtonSearch.isPresent()) {
             patientAlertButtonSearch.get().setPatient(patient);
         } else {
@@ -25,6 +24,13 @@ public class PatientAlertButtonRepository {
             patientAlertButton.setPatient(patient);
             patientAlertButtons.add(patientAlertButton);
         }
+    }
+
+    public void delete(Long code) {
+        final Optional<PatientAlertButton> patientAlertButtonSearch = findByCode(code);
+        patientAlertButtonSearch.ifPresent(patientAlertButton -> {
+            patientAlertButtons.remove(patientAlertButton);
+        });
     }
 
     public Optional<PatientAlertButton> findByPatient(Patient patient) {

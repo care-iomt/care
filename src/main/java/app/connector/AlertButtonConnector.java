@@ -2,7 +2,7 @@ package app.connector;
 
 import alert_button.AlertButtonMonitor;
 import alert_button.AlertButtonMonitorImpl;
-import alert_button.AlertButtonObserver;
+import app.observers.AlertButtonObserverImpl;
 import data_center.DataCenterConnection;
 import data_center.controller.PatientAlertButtonController;
 import data_center.entities.Patient;
@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class AlertConnector {
-    private static AlertConnector instance;
+public class AlertButtonConnector {
+    private static AlertButtonConnector instance;
     private final List<AlertButtonMonitor> alertButtonMonitors;
     private final DataCenterConnection dataCenterConnection;
 
-    private AlertConnector() {
+    private AlertButtonConnector() {
         dataCenterConnection = DataCenterConnection.getInstance();
         alertButtonMonitors = new ArrayList<>();
 
@@ -40,9 +40,9 @@ public class AlertConnector {
         alertButtonMonitors.add(alertButtonMonitor8);
     }
 
-    public static AlertConnector getInstance() {
+    public static AlertButtonConnector getInstance() {
         if (instance == null){
-            instance = new AlertConnector();
+            instance = new AlertButtonConnector();
         }
         return instance;
     }
@@ -96,7 +96,7 @@ public class AlertConnector {
         return Optional.empty();
     }
 
-    public void attachPatientToMonitor(Patient patient, Long code, AlertButtonObserver alertButtonObserver) {
+    public void attachPatientToMonitor(Patient patient, Long code, AlertButtonObserverImpl alertButtonObserver) {
         final Optional<AlertButtonMonitor> alertButtonMonitorSearch = getByCode(code);
         if (alertButtonMonitorSearch.isPresent()) {
             final AlertButtonMonitor alertButtonMonitor = alertButtonMonitorSearch.get();
@@ -104,5 +104,14 @@ public class AlertConnector {
             controller.save(patient, code);
             alertButtonMonitor.addObserver(alertButtonObserver);
         }
+    }
+
+    public void detachPatientOfMonitor(Long code, AlertButtonObserverImpl alertButtonObserver) {
+        final Optional<AlertButtonMonitor> alertButtonMonitorOptional = getByCode(code);
+        alertButtonMonitorOptional.ifPresent(alertButtonMonitor -> {
+            final PatientAlertButtonController controller = dataCenterConnection.getPatientAlertButtonController();
+            controller.delete(code);
+            alertButtonMonitor.removeObserver(alertButtonObserver);
+        });
     }
 }

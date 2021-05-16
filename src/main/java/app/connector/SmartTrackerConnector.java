@@ -3,6 +3,8 @@ package app.connector;
 import app.observers.SmartTrackerObserverImpl;
 import data_center.DataCenterConnection;
 import data_center.entities.Patient;
+import heart_rate.HeartRateMonitor;
+import heart_rate.HeartRateObserver;
 import smart_tracker.SmartTrackerConfig;
 import smart_tracker.SmartTrackerMonitor;
 import smart_tracker.SmartTrackerMonitorImpl;
@@ -64,6 +66,13 @@ public class SmartTrackerConnector {
             smartTrackerMonitor.addObserver(observer);
             smartTrackerMonitor.configure(config);
             smartTrackerMonitor.start(patient.getPatientId());
+        });
+    }
+
+    public void detachPatientOfMonitor(Long code, SmartTrackerObserverImpl smartTrackerObserver) {
+        final Optional<SmartTrackerMonitor> smartTrackerMonitorOptional = getByCode(code);
+        smartTrackerMonitorOptional.ifPresent(smartTrackerMonitor -> {
+            smartTrackerMonitor.removeObserver(smartTrackerObserver);
         });
     }
 }

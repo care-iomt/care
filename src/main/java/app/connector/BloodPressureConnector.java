@@ -1,9 +1,9 @@
 package app.connector;
 
+import app.observers.BloodPressureObserverImpl;
 import blood_pressure.BloodPressureConfig;
 import blood_pressure.BloodPressureMonitor;
 import blood_pressure.BloodPressureMonitorImpl;
-import blood_pressure.BloodPressureObserver;
 import data_center.entities.Patient;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,12 +61,19 @@ public class BloodPressureConnector {
                 .filter(heartRateMonitor -> patientId.equals(heartRateMonitor.getPatientId())).findFirst();
     }
 
-    public void attachPatientToMonitor(Patient patient, Long code, BloodPressureObserver observer,
+    public void attachPatientToMonitor(Patient patient, Long code, BloodPressureObserverImpl observer,
                                        BloodPressureConfig config) {
         getByCode(code).ifPresent(heartRateMonitor -> {
             heartRateMonitor.configure(config);
             heartRateMonitor.addObserver(observer);
             heartRateMonitor.start(patient.getPatientId());
+        });
+    }
+
+    public void detachPatientOfMonitor(Long code, BloodPressureObserverImpl bloodPressureObserver) {
+        final Optional<BloodPressureMonitor> bloodPressureMonitorOptional = getByCode(code);
+        bloodPressureMonitorOptional.ifPresent(bloodPressureMonitor -> {
+            bloodPressureMonitor.removeObserver(bloodPressureObserver);
         });
     }
 }
