@@ -37,24 +37,48 @@ public class ObserverManager {
         return instance;
     }
 
-    public void add(AlertButtonObserverImpl alertButtonObserver) {
-        alertButtonObservers.add(alertButtonObserver);
+    public void add(AlertButtonObserverImpl alertButtonObserver) throws AlreadyHaveMonitorAttachedException {
+        if (getAlertButtonObserversByPatientId(alertButtonObserver.getPatientId()).isEmpty()){
+            alertButtonObservers.add(alertButtonObserver);
+        } else {
+            throw new AlreadyHaveMonitorAttachedException();
+        }
     }
 
-    public void add(BloodPressureObserverImpl bloodPressureObserver) {
-        bloodPressureObservers.add(bloodPressureObserver);
+    public void add(BloodPressureObserverImpl bloodPressureObserver) throws AlreadyHaveMonitorAttachedException {
+        if (getBloodPressureObserversByPatientId(bloodPressureObserver.getPatientId()).isEmpty()){
+            bloodPressureObservers.add(bloodPressureObserver);
+        }
+        else {
+            throw new AlreadyHaveMonitorAttachedException();
+        }
     }
 
-    public void add(SmartTrackerObserverImpl smartTrackerObserver) {
-        smartTrackerObservers.add(smartTrackerObserver);
+    public void add(SmartTrackerObserverImpl smartTrackerObserver) throws AlreadyHaveMonitorAttachedException {
+        if (getSmartTrackerObserversByPatientId(smartTrackerObserver.getPatientId()).isEmpty()){
+            smartTrackerObservers.add(smartTrackerObserver);
+        }
+        else {
+            throw new AlreadyHaveMonitorAttachedException();
+        }
     }
 
-    public void add(TemperatureObserverImpl temperatureObserver) {
-        temperatureObservers.add(temperatureObserver);
+    public void add(TemperatureObserverImpl temperatureObserver) throws AlreadyHaveMonitorAttachedException {
+        if (getTemperatureObserversByPatientId(temperatureObserver.getPatientId()).isEmpty()){
+            temperatureObservers.add(temperatureObserver);
+        }
+        else {
+            throw new AlreadyHaveMonitorAttachedException();
+        }
     }
 
-    public void add(HeartRateObserverImpl heartRateObserver) {
-        heartRateObservers.add(heartRateObserver);
+    public void add(HeartRateObserverImpl heartRateObserver) throws AlreadyHaveMonitorAttachedException {
+        if (getHeartRateObserversByPatientId(heartRateObserver.getPatientId()).isEmpty()){
+            heartRateObservers.add(heartRateObserver);
+        }
+        else {
+            throw new AlreadyHaveMonitorAttachedException();
+        }
     }
 
     public List<ObserverImpl> getObserversByPatientId(Long patientId) {

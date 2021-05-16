@@ -14,8 +14,8 @@ public class TemperatureObserverImpl extends ObserverImpl implements Temperature
     @Override
     public void alert(TemperatureAlertType alertType, Long patientId) {
         Patient patient = findPatientInDataCenter(patientId);
-        Notifier.alertDoctor("TemperatureSensor",
-                "Paciente" + patient.getName()+ "; Descrição: "+alertType.getDescription());
+        Notifier.alertDoctor("ALERTA: TemperatureSensor",
+                "Paciente " + patient.getName()+ "; Descrição: "+alertType.getDescription());
     }
 
     private static Patient findPatientInDataCenter(Long patientId) {

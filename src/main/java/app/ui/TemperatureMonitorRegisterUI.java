@@ -5,16 +5,34 @@
  */
 package app.ui;
 
+import app.AlreadyHaveMonitorAttachedException;
+import app.ObserverManager;
+import app.connector.TemperatureConnector;
+import app.observers.TemperatureObserverImpl;
+import data_center.entities.Patient;
+import temperature_monitor.TemperatureConfig;
+import temperature_monitor.TemperatureMonitor;
+import temperature_monitor.TemperatureState;
+
+import javax.swing.*;
+
 /**
  *
  * @author wmespindula
  */
-public class TemperatureMonitorRegister extends javax.swing.JFrame {
+public class TemperatureMonitorRegisterUI extends LinkedDisposableJFrame {
+    private final Patient patient;
+    private final TemperatureMonitor temperatureMonitor;
+
 
     /**
      * Creates new form BloodPressureRegister
      */
-    public TemperatureMonitorRegister() {
+    public TemperatureMonitorRegisterUI(DisposableJFrame previousJFrame, Patient patient, TemperatureMonitor temperatureMonitor) {
+        super(previousJFrame);
+        this.patient = patient;
+        this.temperatureMonitor = temperatureMonitor;
+
         initComponents();
     }
 
@@ -34,7 +52,7 @@ public class TemperatureMonitorRegister extends javax.swing.JFrame {
         maxTemperatureTextField = new javax.swing.JTextField();
         registerButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -94,8 +112,58 @@ public class TemperatureMonitorRegister extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        // TODO add your handling code here:
+        TemperatureConfig temperatureConfig = getTemperatureConfigFromForm();
+        TemperatureObserverImpl temperatureObserver = new TemperatureObserverImpl(patient.getPatientId());
+        ObserverManager observerManager = ObserverManager.getInstance();
+
+        if (temperatureConfig != null) {
+            try {
+                observerManager.add(temperatureObserver);
+
+                TemperatureConnector connector = TemperatureConnector.getInstance();
+                connector.attachPatientToMonitor(patient, temperatureMonitor.getCode(),
+                        temperatureObserver, temperatureConfig);
+
+                JOptionPane.showMessageDialog(this, "Monitor configurado ao paciente com sucesso!",
+                        "Configurado!", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (AlreadyHaveMonitorAttachedException e) {
+                JOptionPane.showMessageDialog(this, "Sensor de Pressão Arterial já está registrado ao paciente!");
+                e.printStackTrace();
+            }
+            this.dispose();
+        }
     }//GEN-LAST:event_registerButtonActionPerformed
+
+
+    private TemperatureConfig getTemperatureConfigFromForm() {
+        String temperatureMinString = minTemperatureTextField.getText();
+        String temperatureMaxString = maxTemperatureTextField.getText();
+
+        try {
+            Integer temperatureMin = Integer.parseInt(temperatureMinString);
+            Integer temperatureMax = Integer.parseInt(temperatureMaxString);
+
+            TemperatureConfig config = new TemperatureConfig();
+
+            TemperatureState minState = new TemperatureState();
+            minState.setTemperature(temperatureMin);
+
+            TemperatureState maxState = new TemperatureState();
+            maxState.setTemperature(temperatureMax);
+
+            config.setMinState(minState);
+            config.setMaxState(maxState);
+
+            return config;
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Os campos devem conter números inteiros positivos!",
+                    "Erro no preenchimento do formulário", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

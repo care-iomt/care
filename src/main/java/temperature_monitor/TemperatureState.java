@@ -10,4 +10,9 @@ public class TemperatureState {
     public void setTemperature(Integer temperature) {
         this.temperature = temperature;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(temperature);
+    }
 }

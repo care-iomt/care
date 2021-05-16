@@ -14,8 +14,8 @@ public class BloodPressureObserverImpl extends ObserverImpl implements BloodPres
     @Override
     public void alert(BloodPressureAlertType bloodPressureAlertType, Long patientId) {
         Patient patient = findPatientInDataCenter(patientId);
-        Notifier.alertDoctor("SmartTracker",
-                "Paciente" + patient.getName()+ "; Descrição: "+bloodPressureAlertType.getDescription());
+        Notifier.alertDoctor("ALERTAL: BloodPressure",
+                "Paciente " + patient.getName()+ "; Descrição: "+bloodPressureAlertType.getDescription());
     }
 
     private static Patient findPatientInDataCenter(Long patientId) {

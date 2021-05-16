@@ -14,7 +14,7 @@ import javax.swing.*;
  *
  * @author wmespindula
  */
-public class PatientRegisterUI extends javax.swing.JFrame {
+public class PatientRegisterUI extends DisposableJFrame {
 
     /**
      * Creates new form MainUI
@@ -46,6 +46,8 @@ public class PatientRegisterUI extends javax.swing.JFrame {
         cpfTextField = new javax.swing.JTextField();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 17));
         registerButton = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Gerenciamento de Paciente");
@@ -129,9 +131,8 @@ public class PatientRegisterUI extends javax.swing.JFrame {
 
         if (isSuccessful) {
             JOptionPane.showMessageDialog(this, "Paciente inserido com sucesso! xD");
-            this.setVisible(false);
-            nameTextField.setText("");
-            cpfTextField.setText("");
+            dispose();
+            this.isDisposed = true;
         } else {
             JOptionPane.showMessageDialog(this, "Não foi possível registar o paciente!", "Erro ao inserir!", JOptionPane.ERROR_MESSAGE);
         }

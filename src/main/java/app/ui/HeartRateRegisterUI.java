@@ -5,16 +5,39 @@
  */
 package app.ui;
 
+import app.AlreadyHaveMonitorAttachedException;
+import app.ObserverManager;
+import app.connector.BloodPressureConnector;
+import app.connector.HeartRateConnector;
+import app.observers.BloodPressureObserverImpl;
+import app.observers.HeartRateObserverImpl;
+import blood_pressure.BloodPressureConfig;
+import blood_pressure.BloodPressureMonitor;
+import blood_pressure.BloodPressureState;
+import data_center.entities.Patient;
+import heart_rate.HeartRateConfig;
+import heart_rate.HeartRateMonitor;
+import heart_rate.HeartRateState;
+
+import javax.swing.*;
+
 /**
  *
  * @author wmespindula
  */
-public class HeartRateRegister extends javax.swing.JFrame {
+public class HeartRateRegisterUI extends LinkedDisposableJFrame {
+
+    private final Patient patient;
+    private final HeartRateMonitor heartRateMonitor;
 
     /**
      * Creates new form BloodPressureRegister
      */
-    public HeartRateRegister() {
+    public HeartRateRegisterUI(DisposableJFrame previousJFrame, Patient patient, HeartRateMonitor heartRateMonitor) {
+        super(previousJFrame);
+        this.patient = patient;
+        this.heartRateMonitor = heartRateMonitor;
+
         initComponents();
     }
 
@@ -34,7 +57,7 @@ public class HeartRateRegister extends javax.swing.JFrame {
         maxHeartRateTextField = new javax.swing.JTextField();
         registerButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -94,8 +117,57 @@ public class HeartRateRegister extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        // TODO add your handling code here:
+        HeartRateConfig heartRateConfig = getHeartRateConfigFromForm();
+        HeartRateObserverImpl heartRateObserver = new HeartRateObserverImpl(patient.getPatientId());
+        ObserverManager observerManager = ObserverManager.getInstance();
+
+        if (heartRateConfig != null) {
+            try {
+                observerManager.add(heartRateObserver);
+
+                HeartRateConnector connector = HeartRateConnector.getInstance();
+                connector.attachPatientToMonitor(patient, heartRateMonitor.getCode(),
+                        heartRateObserver,heartRateConfig);
+
+                JOptionPane.showMessageDialog(this, "Monitor configurado ao paciente com sucesso!",
+                        "Configurado!", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (AlreadyHaveMonitorAttachedException e) {
+                JOptionPane.showMessageDialog(this, "Sensor de Batimentos Cardíacos já está registrado ao paciente!");
+                e.printStackTrace();
+            }
+            this.dispose();
+        }
     }//GEN-LAST:event_registerButtonActionPerformed
+
+    private HeartRateConfig getHeartRateConfigFromForm() {
+        String heartRateMinString = minHeartRateTextField.getText();
+        String heartRateMaxString = maxHeartRateTextField.getText();
+
+        try {
+            Integer heartRateMin = Integer.parseInt(heartRateMinString);
+            Integer heartRateMax = Integer.parseInt(heartRateMaxString);
+
+            HeartRateConfig config = new HeartRateConfig();
+
+            HeartRateState minState = new HeartRateState();
+            minState.setHeartRate(heartRateMin);
+
+            HeartRateState maxState = new HeartRateState();
+            maxState.setHeartRate(heartRateMax);
+
+            config.setMinState(minState);
+            config.setMaxState(maxState);
+
+            return config;
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Os campos devem conter números inteiros positivos!",
+                    "Erro no preenchimento do formulário", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

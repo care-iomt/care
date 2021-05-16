@@ -14,8 +14,8 @@ public class HeartRateObserverImpl extends ObserverImpl implements HeartRateObse
     @Override
     public void alert(HeartRateAlertType alertType, Long patientId) {
         Patient patient = findPatientInDataCenter(patientId);
-        Notifier.alertDoctor("HeartRate",
-                "Paciente" + patient.getName()+ "; Descrição: "+alertType.getDescription());
+        Notifier.alertDoctor("ALERTA: HeartRate",
+                "Paciente " + patient.getName()+ "; Descrição: "+alertType.getDescription());
     }
 
     private static Patient findPatientInDataCenter(Long patientId) {

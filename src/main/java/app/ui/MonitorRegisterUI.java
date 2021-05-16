@@ -5,17 +5,22 @@
  */
 package app.ui;
 
+import alert_button.AlertButtonMonitor;
+import app.AlreadyHaveMonitorAttachedException;
+import app.ObserverManager;
 import app.SmartMonitors;
-import app.connector.BloodPressureConnector;
-import app.connector.HeartRateConnector;
-import app.connector.SmartTrackerConnector;
-import app.connector.TemperatureConnector;
+import app.connector.*;
+import app.observers.AlertButtonObserverImpl;
+import app.observers.SmartTrackerObserverImpl;
 import blood_pressure.BloodPressureMonitor;
 import data_center.entities.Patient;
 import heart_rate.HeartRateMonitor;
+import smart_tracker.SmartTrackerConfig;
 import smart_tracker.SmartTrackerMonitor;
+import smart_tracker.SmartTrackerPermission;
 import temperature_monitor.TemperatureMonitor;
 
+import javax.swing.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,9 +29,10 @@ import java.util.stream.Collectors;
  *
  * @author wmespindula
  */
-public class MonitorRegisterUI extends javax.swing.JFrame {
+public class MonitorRegisterUI extends DisposableJFrame {
 
     private Patient patient;
+    private DisposableJFrame newMonitorUI;
 
     /**
      * Creates new form MainUI
@@ -206,8 +212,10 @@ public class MonitorRegisterUI extends javax.swing.JFrame {
                 HeartRateConnector heartRateConnector = HeartRateConnector.getInstance();
                 Long heartRateMonitorValue = Long.parseLong(availableSensorsList.getSelectedValue());
                 HeartRateMonitor heartRateMonitor = heartRateConnector.getByCode(heartRateMonitorValue).get();
-
-
+                if (newMonitorUI == null || newMonitorUI.isDisposed()){
+                    newMonitorUI = new HeartRateRegisterUI(this, patient, heartRateMonitor);
+                    newMonitorUI.setVisible(true);
+                }
                 break;
 
 
@@ -216,21 +224,35 @@ public class MonitorRegisterUI extends javax.swing.JFrame {
                 Long bloodPressureMonitorValue = Long.parseLong(availableSensorsList.getSelectedValue());
                 BloodPressureMonitor bloodPressureMonitor = bloodPressureConnector.
                         getByCode(bloodPressureMonitorValue).get();
+                if (newMonitorUI == null || newMonitorUI.isDisposed()){
+                    newMonitorUI = new BloodPressureRegisterUI(this, patient, bloodPressureMonitor);
+                    newMonitorUI.setVisible(true);
+                }
                 break;
 
 
             case SMART_TRACKER:
                 SmartTrackerConnector smartTrackerConnector = SmartTrackerConnector.getInstance();
                 Long smartTrackerMonitorValue = Long.parseLong(availableSensorsList.getSelectedValue());
-                SmartTrackerMonitor smartTrackerMonitor = smartTrackerConnector.getByCode(smartTrackerMonitorValue).get();
-
+                SmartTrackerMonitor smartTrackerMonitor = smartTrackerConnector.
+                        getByCode(smartTrackerMonitorValue).get();
+                registerSmartTracker(smartTrackerMonitor);
                 break;
 
             case TEMPERATURE_MONITOR:
                 TemperatureConnector temperatureConnector = TemperatureConnector.getInstance();
                 Long temperatureMonitorValue = Long.parseLong(availableSensorsList.getSelectedValue());
                 TemperatureMonitor temperatureMonitor = temperatureConnector.getByCode(temperatureMonitorValue).get();
+                if (newMonitorUI == null || newMonitorUI.isDisposed()){
+                    newMonitorUI = new TemperatureMonitorRegisterUI(this, patient, temperatureMonitor);
+                    newMonitorUI.setVisible(true);
+                }
 
+            case EMERGENCY_BUTTON:
+                AlertButtonConnector alertConnector = AlertButtonConnector.getInstance();
+                Long alertMonitorValue = Long.parseLong(availableSensorsList.getSelectedValue());
+                AlertButtonMonitor alertButtonMonitor = alertConnector.getByCode(alertMonitorValue).get();
+                registerEmergencyButton(alertButtonMonitor);
                 break;
 
             default:
@@ -240,6 +262,49 @@ public class MonitorRegisterUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addMonitorButtonActionPerformed
 
+    private void registerEmergencyButton(AlertButtonMonitor alertButtonMonitor) {
+        AlertButtonObserverImpl alertButtonObserver = new AlertButtonObserverImpl(patient.getPatientId());
+        ObserverManager observerManager = ObserverManager.getInstance();
+
+        try {
+            observerManager.add(alertButtonObserver);
+
+            AlertButtonConnector connector = AlertButtonConnector.getInstance();
+            connector.attachPatientToMonitor(patient, alertButtonMonitor.getCode(),
+                    alertButtonObserver);
+
+            JOptionPane.showMessageDialog(this, "Monitor configurado ao paciente com sucesso!",
+                    "Configurado!", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (AlreadyHaveMonitorAttachedException e) {
+            JOptionPane.showMessageDialog(this, "Botão de Emergência já está registrado ao paciente!");
+            e.printStackTrace();
+        }
+        this.dispose();
+    }
+
+    private void registerSmartTracker(SmartTrackerMonitor smartTrackerMonitor) {
+        SmartTrackerConfig smartTrackerConfig = new SmartTrackerConfig();
+        smartTrackerConfig.setPermission(SmartTrackerPermission.PATIENT);
+        SmartTrackerObserverImpl smartTrackerObserver = new SmartTrackerObserverImpl(patient.getPatientId());
+        ObserverManager observerManager = ObserverManager.getInstance();
+
+        try {
+            observerManager.add(smartTrackerObserver);
+
+            SmartTrackerConnector connector = SmartTrackerConnector.getInstance();
+            connector.attachPatientToMonitor(patient, smartTrackerMonitor.getCode(),
+                    smartTrackerObserver, smartTrackerConfig);
+
+            JOptionPane.showMessageDialog(this, "Monitor configurado ao paciente com sucesso!",
+                    "Configurado!", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (AlreadyHaveMonitorAttachedException e) {
+            JOptionPane.showMessageDialog(this, "Sensor de Pulso já está registrado ao paciente!");
+            e.printStackTrace();
+        }
+        this.dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addMonitorButton;

@@ -13,8 +13,8 @@ public class MainUI extends javax.swing.JFrame {
 
     private static MainUI instance;
 
-    private final PatientRegisterUI patientRegisterUI;
-    private final PatientSearchUI patientSearchUI;
+    private PatientRegisterUI patientRegisterUI;
+    private PatientSearchUI patientSearchUI;
 
     private NotificationReceiver notificationReceiver;
 
@@ -22,8 +22,6 @@ public class MainUI extends javax.swing.JFrame {
      * Creates new form MainUI
      */
     public MainUI() {
-        this.patientRegisterUI = new PatientRegisterUI();
-        this.patientSearchUI = new PatientSearchUI();
         this.notificationReceiver = new NotificationReceiverImpl(this);
 
         initComponents();
@@ -107,11 +105,17 @@ public class MainUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void patientSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientSearchButtonActionPerformed
-        patientSearchUI.setVisible(true);
+        if (patientSearchUI == null || patientSearchUI.isDisposed()) {
+            patientSearchUI = new PatientSearchUI();
+            patientSearchUI.setVisible(true);
+        }
     }//GEN-LAST:event_patientSearchButtonActionPerformed
 
     private void patientRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientRegisterButtonActionPerformed
-        patientRegisterUI.setVisible(true);
+        if (patientRegisterUI == null || patientRegisterUI.isDisposed()) {
+            patientRegisterUI = new PatientRegisterUI();
+            patientRegisterUI.setVisible(true);
+        }
     }//GEN-LAST:event_patientRegisterButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
