@@ -70,10 +70,8 @@ public class BloodPressureConnector {
         });
     }
 
-    public void detachPatientOfMonitor(Long code, BloodPressureObserverImpl bloodPressureObserver) {
+    public void detachPatientOfMonitor(Long code) {
         final Optional<BloodPressureMonitor> bloodPressureMonitorOptional = getByCode(code);
-        bloodPressureMonitorOptional.ifPresent(bloodPressureMonitor -> {
-            bloodPressureMonitor.removeObserver(bloodPressureObserver);
-        });
+        bloodPressureMonitorOptional.ifPresent(BloodPressureMonitor::stop);
     }
 }

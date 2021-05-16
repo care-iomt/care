@@ -19,12 +19,6 @@ public interface SmartTrackerMonitor {
     void addObserver(SmartTrackerObserver smartTrackerObserver);
 
     /**
-     * remove um observer
-     * @param smartTrackerObserver objeto para callback
-     */
-    void removeObserver(SmartTrackerObserver smartTrackerObserver);
-
-    /**
      * Retorna o código do dispositivo
      * @return código do dispositivo
      */

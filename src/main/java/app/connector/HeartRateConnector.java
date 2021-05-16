@@ -69,10 +69,8 @@ public class HeartRateConnector {
         });
     }
 
-    public void detachPatientOfMonitor(Long code, HeartRateObserverImpl heartRateObserver) {
+    public void detachPatientOfMonitor(Long code) {
         final Optional<HeartRateMonitor> heartRateMonitorOptional = getByCode(code);
-        heartRateMonitorOptional.ifPresent(heartRateMonitor -> {
-            heartRateMonitor.removeObserver(heartRateObserver);
-        });
+        heartRateMonitorOptional.ifPresent(HeartRateMonitor::stop);
     }
 }

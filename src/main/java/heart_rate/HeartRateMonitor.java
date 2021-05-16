@@ -25,12 +25,6 @@ public interface HeartRateMonitor {
     void addObserver(HeartRateObserver heartRateObserver);
 
     /**
-     * remove um observer
-     * @param heartRateObserver objeto para callback
-     */
-    void removeObserver(HeartRateObserver heartRateObserver);
-
-    /**
      * Retorna o estado atual
      * @return estado atual
      */

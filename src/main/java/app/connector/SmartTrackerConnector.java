@@ -62,10 +62,8 @@ public class SmartTrackerConnector {
         });
     }
 
-    public void detachPatientOfMonitor(Long code, SmartTrackerObserverImpl smartTrackerObserver) {
+    public void detachPatientOfMonitor(Long code) {
         final Optional<SmartTrackerMonitor> smartTrackerMonitorOptional = getByCode(code);
-        smartTrackerMonitorOptional.ifPresent(smartTrackerMonitor -> {
-            smartTrackerMonitor.removeObserver(smartTrackerObserver);
-        });
+        smartTrackerMonitorOptional.ifPresent(SmartTrackerMonitor::stop);
     }
 }

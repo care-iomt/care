@@ -25,12 +25,6 @@ public interface BloodPressureMonitor {
     void addObserver(BloodPressureObserver bloodPressureObserver);
 
     /**
-     * remove um observer
-     * @param bloodPressureObserver objeto para callback
-     */
-    void removeObserver(BloodPressureObserver bloodPressureObserver);
-
-    /**
      * Retorna o estado atual
      * @return estado atual
      */

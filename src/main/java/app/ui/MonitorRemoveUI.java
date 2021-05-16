@@ -179,7 +179,7 @@ public class MonitorRemoveUI extends DisposableJFrame {
                 Optional<HeartRateObserverImpl> heartRateObserverOptional = observerManager.getHeartRateObserversByPatientId(patientId);
                 if (heartRateObserverOptional.isPresent()){
                     HeartRateObserverImpl heartRateObserver = heartRateObserverOptional.get();
-                    heartRateConnector.detachPatientOfMonitor(heartRateObserver.getMonitorCode(), heartRateObserver);
+                    heartRateConnector.detachPatientOfMonitor(heartRateObserver.getMonitorCode());
                     observerManager.remove(heartRateObserver);
 
                     JOptionPane.showMessageDialog(this, "Monitor removido com sucesso!");
@@ -192,7 +192,7 @@ public class MonitorRemoveUI extends DisposableJFrame {
                 Optional<BloodPressureObserverImpl> bloodPressureObserverOptional = observerManager.getBloodPressureObserversByPatientId(patientId);
                 if (bloodPressureObserverOptional.isPresent()){
                     BloodPressureObserverImpl bloodPressureObserver = bloodPressureObserverOptional.get();
-                    bloodPressureConnector.detachPatientOfMonitor(bloodPressureObserver.getMonitorCode(), bloodPressureObserver);
+                    bloodPressureConnector.detachPatientOfMonitor(bloodPressureObserver.getMonitorCode());
                     observerManager.remove(bloodPressureObserver);
 
                     JOptionPane.showMessageDialog(this, "Monitor removido com sucesso!");
@@ -205,7 +205,7 @@ public class MonitorRemoveUI extends DisposableJFrame {
                 Optional<SmartTrackerObserverImpl> smartTrackerObserverOptional = observerManager.getSmartTrackerObserversByPatientId(patientId);
                 if (smartTrackerObserverOptional.isPresent()){
                     SmartTrackerObserverImpl smartTrackerObserver = smartTrackerObserverOptional.get();
-                    smartTrackerConnector.detachPatientOfMonitor(smartTrackerObserver.getMonitorCode(), smartTrackerObserver);
+                    smartTrackerConnector.detachPatientOfMonitor(smartTrackerObserver.getMonitorCode());
                     observerManager.remove(smartTrackerObserver);
 
                     JOptionPane.showMessageDialog(this, "Monitor removido com sucesso!");
@@ -217,7 +217,7 @@ public class MonitorRemoveUI extends DisposableJFrame {
                 Optional<TemperatureObserverImpl> temperatureObserverOptional = observerManager.getTemperatureObserversByPatientId(patientId);
                 if (temperatureObserverOptional.isPresent()){
                     TemperatureObserverImpl temperatureObserver = temperatureObserverOptional.get();
-                    temperatureConnector.detachPatientOfMonitor(temperatureObserver.getMonitorCode(), temperatureObserver);
+                    temperatureConnector.detachPatientOfMonitor(temperatureObserver.getMonitorCode());
                     observerManager.remove(temperatureObserver);
 
                     JOptionPane.showMessageDialog(this, "Monitor removido com sucesso!");

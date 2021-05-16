@@ -21,11 +21,6 @@ public class SmartTrackerMonitorImpl implements SmartTrackerMonitor {
     }
 
     @Override
-    public void removeObserver(SmartTrackerObserver observer) {
-        observerList.remove(observer);
-    }
-
-    @Override
     public Long getCode() {
         return code;
     }
@@ -40,6 +35,7 @@ public class SmartTrackerMonitorImpl implements SmartTrackerMonitor {
 
     @Override
     public void stop() {
+        observerList.clear();
         runnable.kill();
         isRunning = false;
     }

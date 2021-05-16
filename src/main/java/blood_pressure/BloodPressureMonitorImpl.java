@@ -46,6 +46,7 @@ public class BloodPressureMonitorImpl implements BloodPressureMonitor {
 
     @Override
     public void stop() {
+        observerList.clear();
         isRunning = false;
         runnable.kill();
     }
@@ -73,11 +74,6 @@ public class BloodPressureMonitorImpl implements BloodPressureMonitor {
     @Override
     public void addObserver(BloodPressureObserver observer) {
         observerList.add(observer);
-    }
-
-    @Override
-    public void removeObserver(BloodPressureObserver observer) {
-        observerList.remove(observer);
     }
 
     @Override

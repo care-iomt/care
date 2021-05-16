@@ -41,6 +41,7 @@ public class TemperatureMonitorImpl implements TemperatureMonitor {
 
     @Override
     public void stop() {
+        observerList.clear();
         runnable.kill();
         isRunning = false;
     }

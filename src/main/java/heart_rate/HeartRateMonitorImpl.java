@@ -43,6 +43,7 @@ public class HeartRateMonitorImpl implements HeartRateMonitor {
 
     @Override
     public void stop() {
+        observerList.clear();
         runnable.kill();
         isRunning = false;
     }
@@ -70,11 +71,6 @@ public class HeartRateMonitorImpl implements HeartRateMonitor {
     @Override
     public void addObserver(HeartRateObserver observer) {
         observerList.add(observer);
-    }
-
-    @Override
-    public void removeObserver(HeartRateObserver observer) {
-        observerList.remove(observer);
     }
 
     @Override
