@@ -6,12 +6,9 @@ import com.care.app.observers.AlertButtonObserverImpl;
 import com.care.data_center.DataCenterConnection;
 import com.care.data_center.controller.PatientAlertButtonController;
 import com.care.data_center.entities.Patient;
-import com.care.data_center.entities.PatientAlertButton;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class AlertButtonConnector {
     private static AlertButtonConnector instance;
@@ -48,53 +45,9 @@ public class AlertButtonConnector {
         return instance;
     }
 
-    public List<AlertButtonMonitor> findAllNotUsed() {
-        final PatientAlertButtonController controller = dataCenterConnection.getPatientAlertButtonController();
-        final List<PatientAlertButton> patientAlertButtons = controller.getAll();
-
-        return alertButtonMonitors.stream()
-                .filter(alertButtonMonitor ->
-                        patientAlertButtons.stream()
-                                .noneMatch(patientAlertButton ->
-                                        patientAlertButton.getAlertButtonCode().equals(alertButtonMonitor.getCode())))
-                .collect(Collectors.toList());
-    }
-
-    public List<AlertButtonMonitor> findAllUsed() {
-        final PatientAlertButtonController controller = dataCenterConnection.getPatientAlertButtonController();
-        final List<PatientAlertButton> patientAlertButtons = controller.getAll();
-
-        return alertButtonMonitors.stream()
-                .filter(alertButtonMonitor ->
-                        patientAlertButtons.stream()
-                                .anyMatch(patientAlertButton ->
-                                        patientAlertButton.getAlertButtonCode().equals(alertButtonMonitor.getCode())))
-                .collect(Collectors.toList());
-    }
-
     public Optional<AlertButtonMonitor> getByCode(Long code) {
         return alertButtonMonitors.stream()
                 .filter(alertButtonMonitor -> alertButtonMonitor.getCode().equals(code)).findFirst();
-    }
-
-    public Optional<AlertButtonMonitor> getByPatient(Patient patient) {
-        final PatientAlertButtonController controller = dataCenterConnection.getPatientAlertButtonController();
-        final PatientAlertButton patientAlertButton = controller.getByPatient(patient);
-        if (patientAlertButton != null) {
-            final Long code = patientAlertButton.getAlertButtonCode();
-            return alertButtonMonitors.stream()
-                    .filter(alertButtonMonitor -> alertButtonMonitor.getCode().equals(code)).findFirst();
-        }
-        return Optional.empty();
-    }
-
-    public Optional<Patient> getPatient(Long code) {
-        final PatientAlertButtonController controller = dataCenterConnection.getPatientAlertButtonController();
-        final PatientAlertButton patientAlertButton = controller.getByCode(code);
-        if (patientAlertButton != null) {
-            return Optional.of(patientAlertButton.getPatient());
-        }
-        return Optional.empty();
     }
 
     public void attachPatientToMonitor(Patient patient, Long code, AlertButtonObserverImpl alertButtonObserver) {

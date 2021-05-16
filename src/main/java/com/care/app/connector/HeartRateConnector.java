@@ -5,7 +5,6 @@ import com.care.data_center.entities.Patient;
 import com.care.heart_rate.HeartRateConfig;
 import com.care.heart_rate.HeartRateMonitor;
 import com.care.heart_rate.HeartRateMonitorImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,10 +40,6 @@ public class HeartRateConnector {
             instance = new HeartRateConnector();
         }
         return instance;
-    }
-
-    public List<HeartRateMonitor> findAllUsed() {
-        return heartRateMonitors.stream().filter(HeartRateMonitor::isUsed).collect(Collectors.toList());
     }
 
     public List<HeartRateMonitor> findAllNotUsed() {

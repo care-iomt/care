@@ -43,10 +43,6 @@ public class TemperatureConnector {
         return instance;
     }
 
-    public List<TemperatureMonitor> findAllUsed() {
-        return temperatureMonitors.stream().filter(TemperatureMonitor::isUsed).collect(Collectors.toList());
-    }
-
     public List<TemperatureMonitor> findAllNotUsed() {
         return temperatureMonitors.stream().filter(temperatureMonitor -> !temperatureMonitor.isUsed()).collect(Collectors.toList());
     }

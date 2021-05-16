@@ -43,10 +43,6 @@ public class SmartTrackerConnector {
         return instance;
     }
 
-    public List<SmartTrackerMonitor> findAllUsed() {
-        return smartTrackerMonitors.stream().filter(SmartTrackerMonitor::isUsed).collect(Collectors.toList());
-    }
-
     public List<SmartTrackerMonitor> findAllNotUsed() {
         return smartTrackerMonitors.stream().filter(smartTrackerMonitor -> !smartTrackerMonitor.isUsed()).collect(Collectors.toList());
     }

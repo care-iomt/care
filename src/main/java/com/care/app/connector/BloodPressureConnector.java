@@ -5,7 +5,6 @@ import com.care.blood_pressure.BloodPressureConfig;
 import com.care.blood_pressure.BloodPressureMonitor;
 import com.care.blood_pressure.BloodPressureMonitorImpl;
 import com.care.data_center.entities.Patient;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,10 +41,6 @@ public class BloodPressureConnector {
             instance = new BloodPressureConnector();
         }
         return instance;
-    }
-
-    public List<BloodPressureMonitor> findAllUsed() {
-        return bloodPressureMonitors.stream().filter(BloodPressureMonitor::isUsed).collect(Collectors.toList());
     }
 
     public List<BloodPressureMonitor> findAllNotUsed() {
