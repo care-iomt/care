@@ -25,7 +25,7 @@ public class SmartTrackerRunnable implements Runnable {
     public void run() {
         while (isRunning) {
             try {
-                final SmartTrackerAlertType alertType = getAlertType();
+                final SmartTrackerAlertType alertType = readCurrentValue();
                 if (alertType != null) {
                     dataCenterConnection.getPatientLogController()
                             .saveLog(patientId, "Smart Tracker", "Alert code: " + alertType.getValue());
@@ -37,7 +37,7 @@ public class SmartTrackerRunnable implements Runnable {
         }
     }
 
-    private SmartTrackerAlertType getAlertType() {
+    private SmartTrackerAlertType readCurrentValue() {
         final double rand = Math.random();
         if (rand < 0.925) {
             return null;

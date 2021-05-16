@@ -30,7 +30,7 @@ public class HeartRateRunnable implements Runnable {
     public void run() {
         while (isRunning) {
             try {
-                final HeartRateAlertType alertType = getAlertType();
+                final HeartRateAlertType alertType = readCurrentValue();
                 if (alertType != null) {
                     saveLog("Alerta: " + alertType.getValue());
                     observerList.forEach(observer -> observer.alert(alertType, patientId));
@@ -41,7 +41,7 @@ public class HeartRateRunnable implements Runnable {
         }
     }
 
-    private HeartRateAlertType getAlertType() {
+    private HeartRateAlertType readCurrentValue() {
         final int heartRate = getHeartRate();
         state.setHeartRate(heartRate);
         saveLog("Batimentos: " + heartRate);

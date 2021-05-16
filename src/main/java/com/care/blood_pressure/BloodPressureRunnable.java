@@ -32,7 +32,7 @@ public class BloodPressureRunnable implements Runnable {
     public void run() {
         while (isRunning) {
             try {
-                final BloodPressureAlertType alertType = getAlertType();
+                final BloodPressureAlertType alertType = readCurrentValue();
                 if (alertType != null) {
                     saveLog("Alerta " + alertType.getValue());
                     observerList.forEach(observer -> observer.alert(alertType, patientId));
@@ -43,7 +43,7 @@ public class BloodPressureRunnable implements Runnable {
         }
     }
 
-    private BloodPressureAlertType getAlertType() {
+    private BloodPressureAlertType readCurrentValue() {
         final Pair<Integer, Integer> bloodPressure = getBloodPressure();
 
         final int systolic = bloodPressure.getLeft();

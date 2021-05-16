@@ -30,7 +30,7 @@ public class TemperatureRunnable implements Runnable {
     public void run() {
         while (isRunning) {
             try {
-                final TemperatureAlertType alertType = getAlertType();
+                final TemperatureAlertType alertType = readCurrentValue();
                 if (alertType != null) {
                     saveLog("Alerta: " + alertType.getValue());
                     observerList.forEach(observer -> observer.alert(alertType, patientId));
@@ -41,7 +41,7 @@ public class TemperatureRunnable implements Runnable {
         }
     }
 
-    private TemperatureAlertType getAlertType() {
+    private TemperatureAlertType readCurrentValue() {
         final int temperature = (int) getRandomTemperature();
         saveLog("Temperatura: " + temperature + "ºC");
         state.setTemperature(temperature);
