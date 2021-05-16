@@ -168,79 +168,84 @@ public class MonitorRemoveUI extends DisposableJFrame {
 
     private void addMonitorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMonitorButtonActionPerformed
 
-        SmartMonitors type = Arrays.stream(SmartMonitors.values()).filter(item  -> item.getName().equals(monitorTypeSelector.getSelectedItem()))
-                .findFirst().get();
-        ObserverManager observerManager = ObserverManager.getInstance();
-        Long patientId = patient.getPatientId();
+        Optional<SmartMonitors> smartMonitorTypeOptional = Arrays.stream(SmartMonitors.values()).filter(item  -> item.getName().equals(monitorTypeSelector.getSelectedItem()))
+                .findFirst();
+        if (smartMonitorTypeOptional.isPresent()) {
+            SmartMonitors type = smartMonitorTypeOptional.get();
+            ObserverManager observerManager = ObserverManager.getInstance();
+            Long patientId = patient.getPatientId();
 
-        switch (type){
-            case HEART_RATE:
-                HeartRateConnector heartRateConnector = HeartRateConnector.getInstance();
-                Optional<HeartRateObserverImpl> heartRateObserverOptional = observerManager.getHeartRateObserversByPatientId(patientId);
-                if (heartRateObserverOptional.isPresent()){
-                    HeartRateObserverImpl heartRateObserver = heartRateObserverOptional.get();
-                    heartRateConnector.detachPatientOfMonitor(heartRateObserver.getMonitorCode());
-                    observerManager.remove(heartRateObserver);
+            switch (type){
+                case HEART_RATE:
+                    HeartRateConnector heartRateConnector = HeartRateConnector.getInstance();
+                    Optional<HeartRateObserverImpl> heartRateObserverOptional = observerManager.getHeartRateObserversByPatientId(patientId);
+                    if (heartRateObserverOptional.isPresent()){
+                        HeartRateObserverImpl heartRateObserver = heartRateObserverOptional.get();
+                        heartRateConnector.detachPatientOfMonitor(heartRateObserver.getMonitorCode());
+                        observerManager.remove(heartRateObserver);
 
-                    JOptionPane.showMessageDialog(this, "Monitor removido com sucesso!");
-                }
-                break;
-
-
-            case BLOOD_PRESSURE:
-                BloodPressureConnector bloodPressureConnector = BloodPressureConnector.getInstance();
-                Optional<BloodPressureObserverImpl> bloodPressureObserverOptional = observerManager.getBloodPressureObserversByPatientId(patientId);
-                if (bloodPressureObserverOptional.isPresent()){
-                    BloodPressureObserverImpl bloodPressureObserver = bloodPressureObserverOptional.get();
-                    bloodPressureConnector.detachPatientOfMonitor(bloodPressureObserver.getMonitorCode());
-                    observerManager.remove(bloodPressureObserver);
-
-                    JOptionPane.showMessageDialog(this, "Monitor removido com sucesso!");
-                }
-                break;
+                        JOptionPane.showMessageDialog(this, "Monitor removido com sucesso!");
+                    }
+                    break;
 
 
-            case SMART_TRACKER:
-                SmartTrackerConnector smartTrackerConnector = SmartTrackerConnector.getInstance();
-                Optional<SmartTrackerObserverImpl> smartTrackerObserverOptional = observerManager.getSmartTrackerObserversByPatientId(patientId);
-                if (smartTrackerObserverOptional.isPresent()){
-                    SmartTrackerObserverImpl smartTrackerObserver = smartTrackerObserverOptional.get();
-                    smartTrackerConnector.detachPatientOfMonitor(smartTrackerObserver.getMonitorCode());
-                    observerManager.remove(smartTrackerObserver);
+                case BLOOD_PRESSURE:
+                    BloodPressureConnector bloodPressureConnector = BloodPressureConnector.getInstance();
+                    Optional<BloodPressureObserverImpl> bloodPressureObserverOptional = observerManager.getBloodPressureObserversByPatientId(patientId);
+                    if (bloodPressureObserverOptional.isPresent()){
+                        BloodPressureObserverImpl bloodPressureObserver = bloodPressureObserverOptional.get();
+                        bloodPressureConnector.detachPatientOfMonitor(bloodPressureObserver.getMonitorCode());
+                        observerManager.remove(bloodPressureObserver);
 
-                    JOptionPane.showMessageDialog(this, "Monitor removido com sucesso!");
-                }
-                break;
-
-            case TEMPERATURE_MONITOR:
-                TemperatureConnector temperatureConnector = TemperatureConnector.getInstance();
-                Optional<TemperatureObserverImpl> temperatureObserverOptional = observerManager.getTemperatureObserversByPatientId(patientId);
-                if (temperatureObserverOptional.isPresent()){
-                    TemperatureObserverImpl temperatureObserver = temperatureObserverOptional.get();
-                    temperatureConnector.detachPatientOfMonitor(temperatureObserver.getMonitorCode());
-                    observerManager.remove(temperatureObserver);
-
-                    JOptionPane.showMessageDialog(this, "Monitor removido com sucesso!");
-                }
-                break;
+                        JOptionPane.showMessageDialog(this, "Monitor removido com sucesso!");
+                    }
+                    break;
 
 
-            case EMERGENCY_BUTTON:
-                AlertButtonConnector alertButtonConnector = AlertButtonConnector.getInstance();
-                Optional<AlertButtonObserverImpl> alertButtonObserverOptional = observerManager.getAlertButtonObserversByPatientId(patientId);
-                if (alertButtonObserverOptional.isPresent()){
-                    AlertButtonObserverImpl alertButtonObserver = alertButtonObserverOptional.get();
-                    alertButtonConnector.detachPatientOfMonitor(alertButtonObserver.getMonitorCode(), alertButtonObserver);
-                    observerManager.remove(alertButtonObserver);
+                case SMART_TRACKER:
+                    SmartTrackerConnector smartTrackerConnector = SmartTrackerConnector.getInstance();
+                    Optional<SmartTrackerObserverImpl> smartTrackerObserverOptional = observerManager.getSmartTrackerObserversByPatientId(patientId);
+                    if (smartTrackerObserverOptional.isPresent()){
+                        SmartTrackerObserverImpl smartTrackerObserver = smartTrackerObserverOptional.get();
+                        smartTrackerConnector.detachPatientOfMonitor(smartTrackerObserver.getMonitorCode());
+                        observerManager.remove(smartTrackerObserver);
 
-                    JOptionPane.showMessageDialog(this, "Monitor removido com sucesso!");
-                }
-                break;
+                        JOptionPane.showMessageDialog(this, "Monitor removido com sucesso!");
+                    }
+                    break;
 
-            default:
-                JOptionPane.showMessageDialog(this, "Nenhum monitor selecionado!");
-                break;
+                case TEMPERATURE_MONITOR:
+                    TemperatureConnector temperatureConnector = TemperatureConnector.getInstance();
+                    Optional<TemperatureObserverImpl> temperatureObserverOptional = observerManager.getTemperatureObserversByPatientId(patientId);
+                    if (temperatureObserverOptional.isPresent()){
+                        TemperatureObserverImpl temperatureObserver = temperatureObserverOptional.get();
+                        temperatureConnector.detachPatientOfMonitor(temperatureObserver.getMonitorCode());
+                        observerManager.remove(temperatureObserver);
 
+                        JOptionPane.showMessageDialog(this, "Monitor removido com sucesso!");
+                    }
+                    break;
+
+
+                case EMERGENCY_BUTTON:
+                    AlertButtonConnector alertButtonConnector = AlertButtonConnector.getInstance();
+                    Optional<AlertButtonObserverImpl> alertButtonObserverOptional = observerManager.getAlertButtonObserversByPatientId(patientId);
+                    if (alertButtonObserverOptional.isPresent()){
+                        AlertButtonObserverImpl alertButtonObserver = alertButtonObserverOptional.get();
+                        alertButtonConnector.detachPatientOfMonitor(alertButtonObserver.getMonitorCode(), alertButtonObserver);
+                        observerManager.remove(alertButtonObserver);
+
+                        JOptionPane.showMessageDialog(this, "Monitor removido com sucesso!");
+                    }
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(this, "Nenhum monitor selecionado!");
+                    break;
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Nenhum monitor selecionado!");
         }
         this.dispose();
     }//GEN-LAST:event_addMonitorButtonActionPerformed

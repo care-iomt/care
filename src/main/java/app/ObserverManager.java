@@ -32,7 +32,7 @@ public class ObserverManager {
     public static ObserverManager getInstance() {
         if (instance == null) {
             instance = new ObserverManager();
-        };
+        }
 
         return instance;
     }
@@ -138,20 +138,20 @@ public class ObserverManager {
         alertButtonObservers.remove(alertButtonObserver);
     }
 
-    public void remove(BloodPressureObserver bloodPressureObservers) {
-        alertButtonObservers.remove(bloodPressureObservers);
+    public void remove(BloodPressureObserver bloodPressureObserver) {
+        bloodPressureObservers.remove(bloodPressureObserver);
     }
 
-    public void remove(SmartTrackerObserver smartTrackerObservers) {
-        alertButtonObservers.remove(smartTrackerObservers);
+    public void remove(SmartTrackerObserver smartTrackerObserver) {
+        smartTrackerObservers.remove(smartTrackerObserver);
     }
 
-    public void remove(TemperatureObserver temperatureObservers) {
-        alertButtonObservers.remove(temperatureObservers);
+    public void remove(TemperatureObserver temperatureObserver) {
+        temperatureObservers.remove(temperatureObserver);
     }
 
-    public void remove(HeartRateObserver heartRateObservers) {
-        alertButtonObservers.remove(heartRateObservers);
+    public void remove(HeartRateObserver heartRateObserver) {
+        heartRateObservers.remove(heartRateObserver);
     }
 
     public List<AlertButtonObserverImpl> getAlertButtonObservers() {
