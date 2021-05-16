@@ -32,7 +32,7 @@ public class BloodPressureRunnable implements Runnable {
     public void run() {
         while (isRunning) {
             try {
-                Thread.sleep(60000);
+                Thread.sleep(120000);
                 final BloodPressureAlertType alertType = getAlertType();
                 if (alertType != null) {
                     saveLog("Alerta "+alertType.getValue());

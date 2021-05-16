@@ -15,7 +15,7 @@ public class SmartCameraMonitorImpl implements SmartCameraMonitor {
 
     @Override
     public void configure(SmartCameraConfig config) {
-        config = config;
+        this.config = config;
     }
 
     @Override
