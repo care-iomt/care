@@ -1,29 +1,18 @@
 package smart_tracker;
 
-import data_center.DataCenterConnection;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SmartTrackerMonitorImpl implements SmartTrackerMonitor {
-    private final DataCenterConnection dataCenterConnection;
     private final List<SmartTrackerObserver> observerList;
     private final Long code;
-    private SmartTrackerConfig config;
     private SmartTrackerRunnable runnable;
     private boolean isRunning;
 
-    public SmartTrackerMonitorImpl(DataCenterConnection dataCenterConnection, Long code) {
-        this.dataCenterConnection = dataCenterConnection;
+    public SmartTrackerMonitorImpl(Long code) {
         this.code = code;
         this.isRunning = false;
         observerList = new ArrayList<>();
-        config = new SmartTrackerConfig();
-        config.setPermission(SmartTrackerPermission.NONE);
-    }
-
-    @Override
-    public void configure(SmartTrackerConfig config) {
-        this.config = config;
     }
 
     @Override

@@ -13,12 +13,6 @@ public interface SmartTrackerMonitor {
     void stop();
 
     /**
-     * Configura o monitor
-     * @param config objeto de configuração
-     */
-    void configure(SmartTrackerConfig config);
-
-    /**
      * Adicionar um observer para callback em caso de alertas configurados
      * @param smartTrackerObserver objeto para callback
      */

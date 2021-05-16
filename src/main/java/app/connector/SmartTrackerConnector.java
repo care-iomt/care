@@ -1,11 +1,7 @@
 package app.connector;
 
 import app.observers.SmartTrackerObserverImpl;
-import data_center.DataCenterConnection;
 import data_center.entities.Patient;
-import heart_rate.HeartRateMonitor;
-import heart_rate.HeartRateObserver;
-import smart_tracker.SmartTrackerConfig;
 import smart_tracker.SmartTrackerMonitor;
 import smart_tracker.SmartTrackerMonitorImpl;
 import java.util.ArrayList;
@@ -18,17 +14,16 @@ public class SmartTrackerConnector {
     private final List<SmartTrackerMonitor> smartTrackerMonitors;
 
     private SmartTrackerConnector() {
-        final DataCenterConnection dataCenterConnection = DataCenterConnection.getInstance();
         smartTrackerMonitors = new ArrayList<>();
 
-        final SmartTrackerMonitor smartTrackerConnector1 = new SmartTrackerMonitorImpl(dataCenterConnection, 45245454L);
-        final SmartTrackerMonitor smartTrackerConnector2 = new SmartTrackerMonitorImpl(dataCenterConnection, 45454454L);
-        final SmartTrackerMonitor smartTrackerConnector3 = new SmartTrackerMonitorImpl(dataCenterConnection, 87578575L);
-        final SmartTrackerMonitor smartTrackerConnector4 = new SmartTrackerMonitorImpl(dataCenterConnection, 54457772L);
-        final SmartTrackerMonitor smartTrackerConnector5 = new SmartTrackerMonitorImpl(dataCenterConnection, 24524524L);
-        final SmartTrackerMonitor smartTrackerConnector6 = new SmartTrackerMonitorImpl(dataCenterConnection, 45244257L);
-        final SmartTrackerMonitor smartTrackerConnector7 = new SmartTrackerMonitorImpl(dataCenterConnection, 78758725L);
-        final SmartTrackerMonitor smartTrackerConnector8 = new SmartTrackerMonitorImpl(dataCenterConnection, 45254244L);
+        final SmartTrackerMonitor smartTrackerConnector1 = new SmartTrackerMonitorImpl(45245454L);
+        final SmartTrackerMonitor smartTrackerConnector2 = new SmartTrackerMonitorImpl(45454454L);
+        final SmartTrackerMonitor smartTrackerConnector3 = new SmartTrackerMonitorImpl(87578575L);
+        final SmartTrackerMonitor smartTrackerConnector4 = new SmartTrackerMonitorImpl(54457772L);
+        final SmartTrackerMonitor smartTrackerConnector5 = new SmartTrackerMonitorImpl(24524524L);
+        final SmartTrackerMonitor smartTrackerConnector6 = new SmartTrackerMonitorImpl(45244257L);
+        final SmartTrackerMonitor smartTrackerConnector7 = new SmartTrackerMonitorImpl(78758725L);
+        final SmartTrackerMonitor smartTrackerConnector8 = new SmartTrackerMonitorImpl(45254244L);
 
         smartTrackerMonitors.add(smartTrackerConnector1);
         smartTrackerMonitors.add(smartTrackerConnector2);
@@ -60,11 +55,9 @@ public class SmartTrackerConnector {
                 .filter(smartTrackerMonitor -> code.equals(smartTrackerMonitor.getCode())).findFirst();
     }
 
-    public void attachPatientToMonitor(Patient patient, Long code, SmartTrackerObserverImpl observer,
-                                       SmartTrackerConfig config) {
+    public void attachPatientToMonitor(Patient patient, Long code, SmartTrackerObserverImpl observer) {
         getByCode(code).ifPresent(smartTrackerMonitor -> {
             smartTrackerMonitor.addObserver(observer);
-            smartTrackerMonitor.configure(config);
             smartTrackerMonitor.start(patient.getPatientId());
         });
     }

@@ -15,9 +15,7 @@ import app.observers.SmartTrackerObserverImpl;
 import blood_pressure.BloodPressureMonitor;
 import data_center.entities.Patient;
 import heart_rate.HeartRateMonitor;
-import smart_tracker.SmartTrackerConfig;
 import smart_tracker.SmartTrackerMonitor;
-import smart_tracker.SmartTrackerPermission;
 import temperature_monitor.TemperatureMonitor;
 
 import javax.swing.*;
@@ -284,8 +282,6 @@ public class MonitorRegisterUI extends DisposableJFrame {
     }
 
     private void registerSmartTracker(SmartTrackerMonitor smartTrackerMonitor) {
-        SmartTrackerConfig smartTrackerConfig = new SmartTrackerConfig();
-        smartTrackerConfig.setPermission(SmartTrackerPermission.PATIENT);
         SmartTrackerObserverImpl smartTrackerObserver = new SmartTrackerObserverImpl(patient.getPatientId(), smartTrackerMonitor.getCode());
         ObserverManager observerManager = ObserverManager.getInstance();
 
@@ -294,7 +290,7 @@ public class MonitorRegisterUI extends DisposableJFrame {
 
             SmartTrackerConnector connector = SmartTrackerConnector.getInstance();
             connector.attachPatientToMonitor(patient, smartTrackerMonitor.getCode(),
-                    smartTrackerObserver, smartTrackerConfig);
+                    smartTrackerObserver);
 
             JOptionPane.showMessageDialog(this, "Monitor configurado ao paciente com sucesso!",
                     "Configurado!", JOptionPane.INFORMATION_MESSAGE);
