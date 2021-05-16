@@ -4,8 +4,9 @@ import smart_tracker.SmartTrackerAlertType;
 import smart_tracker.SmartTrackerObserver;
 
 public class SmartTrackerObserverImpl extends ObserverImpl implements SmartTrackerObserver {
-    public SmartTrackerObserverImpl(Long patientId) {
-        super(patientId);
+
+    public SmartTrackerObserverImpl(Long patientId, Long monitorCode) {
+        super(patientId, monitorCode);
     }
 
     @Override

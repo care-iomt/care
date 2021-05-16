@@ -37,6 +37,7 @@ public class PatientSearchUI extends DisposableJFrame {
      */
     public PatientSearchUI() {
         initComponents();
+        patientInfoPanel.setVisible(false);
     }
 
     /**
@@ -264,6 +265,7 @@ public class PatientSearchUI extends DisposableJFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         refreshInfo();
+        patientInfoPanel.setVisible(true);
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void refreshInfo() {

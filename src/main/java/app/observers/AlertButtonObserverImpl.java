@@ -4,8 +4,8 @@ import alert_button.AlertButtonObserver;
 import app.ui.Notifier;
 
 public class AlertButtonObserverImpl extends ObserverImpl implements AlertButtonObserver {
-    public AlertButtonObserverImpl(Long patientId) {
-        super(patientId);
+    public AlertButtonObserverImpl(Long patientId, Long monitorCode) {
+        super(patientId, monitorCode);
     }
 
     @Override

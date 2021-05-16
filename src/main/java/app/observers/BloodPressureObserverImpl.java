@@ -7,8 +7,8 @@ import data_center.DataCenterConnection;
 import data_center.entities.Patient;
 
 public class BloodPressureObserverImpl extends ObserverImpl implements BloodPressureObserver {
-    public BloodPressureObserverImpl(Long patientId) {
-        super(patientId);
+    public BloodPressureObserverImpl(Long patientId, Long monitorCode) {
+        super(patientId, monitorCode);
     }
 
     @Override

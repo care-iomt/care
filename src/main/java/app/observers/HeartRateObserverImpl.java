@@ -7,9 +7,10 @@ import heart_rate.HeartRateAlertType;
 import heart_rate.HeartRateObserver;
 
 public class HeartRateObserverImpl extends ObserverImpl implements HeartRateObserver {
-    public HeartRateObserverImpl(Long patientId) {
-        super(patientId);
+    public HeartRateObserverImpl(Long patientId, Long monitorCode) {
+        super(patientId, monitorCode);
     }
+
 
     @Override
     public void alert(HeartRateAlertType alertType, Long patientId) {

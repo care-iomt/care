@@ -26,5 +26,9 @@ public abstract class DisposableJFrame extends JFrame {
         return this.isDisposed;
     }
 
-
+    @Override
+    public void dispose() {
+        this.isDisposed = true;
+        super.dispose();
+    }
 }

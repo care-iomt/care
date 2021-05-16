@@ -24,13 +24,13 @@ public class SmartTrackerRunnable implements Runnable {
     public void run() {
         while (isRunning) {
             try {
-                Thread.sleep(300000);
                 final SmartTrackerAlertType alertType = getAlertType();
                 if (alertType != null) {
                     dataCenterConnection.getPatientLogController()
                             .saveLog(patientId, "Smart Tracker", "Alert code: "+alertType.getValue());
                     observerList.forEach(observer -> observer.alert(alertType, patientId));
                 }
+                Thread.sleep(300000);
             } catch (InterruptedException ignored) { }
         }
     }

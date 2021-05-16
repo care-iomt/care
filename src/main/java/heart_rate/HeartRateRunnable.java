@@ -29,12 +29,12 @@ public class HeartRateRunnable implements Runnable {
     public void run() {
         while (isRunning) {
             try {
-                Thread.sleep(120000);
                 final HeartRateAlertType alertType = getAlertType();
                 if (alertType != null) {
                     saveLog("Alerta: " + alertType.getValue());
                     observerList.forEach(observer -> observer.alert(alertType, patientId));
                 }
+                Thread.sleep(120000);
             } catch (InterruptedException ignored) { }
         }
     }

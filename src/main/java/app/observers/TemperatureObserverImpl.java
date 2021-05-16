@@ -7,8 +7,9 @@ import temperature_monitor.TemperatureAlertType;
 import temperature_monitor.TemperatureObserver;
 
 public class TemperatureObserverImpl extends ObserverImpl implements TemperatureObserver {
-    public TemperatureObserverImpl(Long patientId) {
-        super(patientId);
+
+    public TemperatureObserverImpl(Long patientId, Long monitorCode) {
+        super(patientId, monitorCode);
     }
 
     @Override

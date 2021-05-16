@@ -112,7 +112,7 @@ public class MainUI extends javax.swing.JFrame {
     }//GEN-LAST:event_patientSearchButtonActionPerformed
 
     private void patientRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientRegisterButtonActionPerformed
-        if (patientRegisterUI == null || patientRegisterUI.isDisposed()) {
+       if (patientRegisterUI == null || patientRegisterUI.isDisposed()) {
             patientRegisterUI = new PatientRegisterUI();
             patientRegisterUI.setVisible(true);
         }

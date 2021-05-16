@@ -27,10 +27,10 @@ public class SmartCameraRunnable implements Runnable {
     public void run() {
         while (isRunning) {
             try {
-                Thread.sleep(5000);
                 Optional<Person> personOptional = detectPersonWithoutMask();
                 personOptional.ifPresent(person -> observers
                         .forEach(observer -> observer.alert(config.getSector(), person)));
+                Thread.sleep(5000);
             } catch (InterruptedException ignored) { }
         }
     }

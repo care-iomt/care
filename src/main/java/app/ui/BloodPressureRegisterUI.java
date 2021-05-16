@@ -134,7 +134,7 @@ public class BloodPressureRegisterUI extends LinkedDisposableJFrame {
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         BloodPressureConfig bloodPressureConfig = getBloodPressureConfigFromForm();
-        BloodPressureObserverImpl bloodPressureObserver = new BloodPressureObserverImpl(patient.getPatientId());
+        BloodPressureObserverImpl bloodPressureObserver = new BloodPressureObserverImpl(patient.getPatientId(), bloodPressureMonitor.getCode());
         ObserverManager observerManager = ObserverManager.getInstance();
 
         if (bloodPressureConfig != null) {

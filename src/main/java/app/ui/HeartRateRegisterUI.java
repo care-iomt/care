@@ -118,7 +118,7 @@ public class HeartRateRegisterUI extends LinkedDisposableJFrame {
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         HeartRateConfig heartRateConfig = getHeartRateConfigFromForm();
-        HeartRateObserverImpl heartRateObserver = new HeartRateObserverImpl(patient.getPatientId());
+        HeartRateObserverImpl heartRateObserver = new HeartRateObserverImpl(patient.getPatientId(), heartRateMonitor.getCode());
         ObserverManager observerManager = ObserverManager.getInstance();
 
         if (heartRateConfig != null) {

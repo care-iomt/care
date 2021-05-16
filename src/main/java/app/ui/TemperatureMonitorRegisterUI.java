@@ -113,7 +113,7 @@ public class TemperatureMonitorRegisterUI extends LinkedDisposableJFrame {
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         TemperatureConfig temperatureConfig = getTemperatureConfigFromForm();
-        TemperatureObserverImpl temperatureObserver = new TemperatureObserverImpl(patient.getPatientId());
+        TemperatureObserverImpl temperatureObserver = new TemperatureObserverImpl(patient.getPatientId(), temperatureMonitor.getCode());
         ObserverManager observerManager = ObserverManager.getInstance();
 
         if (temperatureConfig != null) {

@@ -263,7 +263,7 @@ public class MonitorRegisterUI extends DisposableJFrame {
     }//GEN-LAST:event_addMonitorButtonActionPerformed
 
     private void registerEmergencyButton(AlertButtonMonitor alertButtonMonitor) {
-        AlertButtonObserverImpl alertButtonObserver = new AlertButtonObserverImpl(patient.getPatientId());
+        AlertButtonObserverImpl alertButtonObserver = new AlertButtonObserverImpl(patient.getPatientId(), alertButtonMonitor.getCode());
         ObserverManager observerManager = ObserverManager.getInstance();
 
         try {
@@ -286,7 +286,7 @@ public class MonitorRegisterUI extends DisposableJFrame {
     private void registerSmartTracker(SmartTrackerMonitor smartTrackerMonitor) {
         SmartTrackerConfig smartTrackerConfig = new SmartTrackerConfig();
         smartTrackerConfig.setPermission(SmartTrackerPermission.PATIENT);
-        SmartTrackerObserverImpl smartTrackerObserver = new SmartTrackerObserverImpl(patient.getPatientId());
+        SmartTrackerObserverImpl smartTrackerObserver = new SmartTrackerObserverImpl(patient.getPatientId(), smartTrackerMonitor.getCode());
         ObserverManager observerManager = ObserverManager.getInstance();
 
         try {
