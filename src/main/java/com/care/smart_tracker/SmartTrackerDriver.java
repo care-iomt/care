@@ -3,17 +3,14 @@ package com.care.smart_tracker;
 import com.care.data_center.DataCenterConnection;
 
 import java.util.List;
+import java.util.function.Function;
 
-public class SmartTrackerRunnable implements Runnable {
-    private final List<SmartTrackerObserver> observerList;
-    private final DataCenterConnection dataCenterConnection;
-    private final Long patientId;
+public class SmartTrackerDriver implements Runnable {
+    private final Function<SmartTrackerAlertType, Void> handleAlert;
     private boolean isRunning;
 
-    public SmartTrackerRunnable(List<SmartTrackerObserver> observerList, Long patientId) {
-        this.observerList = observerList;
-        this.dataCenterConnection = DataCenterConnection.getInstance();
-        this.patientId = patientId;
+    public SmartTrackerDriver(Function<SmartTrackerAlertType, Void> handleAlert) {
+        this.handleAlert = handleAlert;
         isRunning = true;
     }
 
@@ -27,11 +24,9 @@ public class SmartTrackerRunnable implements Runnable {
             try {
                 final SmartTrackerAlertType alertType = readCurrentValue();
                 if (alertType != null) {
-                    dataCenterConnection.getPatientLogController()
-                            .saveLog(patientId, "Smart Tracker", "Alert code: " + alertType.getValue());
-                    observerList.forEach(observer -> observer.alert(alertType, patientId));
+                    handleAlert.apply(alertType);
                 }
-                Thread.sleep(300000);
+                Thread.sleep(60000);
             } catch (InterruptedException ignored) {
             }
         }

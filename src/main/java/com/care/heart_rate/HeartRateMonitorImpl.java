@@ -1,5 +1,8 @@
 package com.care.heart_rate;
 
+import com.care.data_center.DataCenterConnection;
+
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,12 +10,14 @@ public class HeartRateMonitorImpl implements HeartRateMonitor {
     private final List<HeartRateObserver> observerList;
     private final HeartRateState state;
     private final Long code;
+    private final DataCenterConnection dataCenterConnection;
     private Long patientId;
     private HeartRateConfig config;
-    private HeartRateRunnable runnable;
+    private HeartRateDriver runnable;
     private boolean isRunning;
 
     public HeartRateMonitorImpl(Long code) {
+        this.dataCenterConnection = DataCenterConnection.getInstance();
         this.code = code;
         this.isRunning = false;
 
@@ -34,10 +39,13 @@ public class HeartRateMonitorImpl implements HeartRateMonitor {
 
     @Override
     public void start(Long patientId) {
-        runnable = new HeartRateRunnable(observerList, patientId, state, config);
+        this.patientId = patientId;
+        runnable = new HeartRateDriver(heartRate -> {
+            handleHeartRateRead(heartRate);
+            return null;
+        });
         final Thread thread = new Thread(runnable);
         thread.start();
-        this.patientId = patientId;
         isRunning = true;
     }
 
@@ -76,5 +84,29 @@ public class HeartRateMonitorImpl implements HeartRateMonitor {
     @Override
     public void configure(HeartRateConfig config) {
         this.config = config;
+    }
+
+    private void handleHeartRateRead(int heartRate) {
+        final HeartRateAlertType alertType = checkShouldAlert(heartRate);
+        if (alertType != null) {
+            saveLog("Alerta: " + alertType.getValue());
+            observerList.forEach(observer -> observer.alert(alertType, patientId));
+        }
+    }
+
+    private HeartRateAlertType checkShouldAlert(int heartRate) {
+        state.setHeartRate(heartRate);
+        saveLog("Batimentos: " + heartRate);
+        if (heartRate > config.getMaxState().getHeartRate()) {
+            return HeartRateAlertType.MAX;
+        } else if (heartRate < config.getMinState().getHeartRate()) {
+            return HeartRateAlertType.MIN;
+        } else {
+            return null;
+        }
+    }
+
+    private void saveLog(String info) {
+        dataCenterConnection.getPatientLogController().saveLog(patientId, "Monitor de Batimentos", info);
     }
 }

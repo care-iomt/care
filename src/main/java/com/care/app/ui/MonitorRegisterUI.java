@@ -20,15 +20,12 @@ import com.care.temperature_monitor.TemperatureMonitor;
 
 import javax.swing.*;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author wmespindula
  */
 public class MonitorRegisterUI extends DisposableJFrame {
-
-    private Patient patient;
+    private final Patient patient;
     private DisposableJFrame newMonitorUI;
 
     /**
@@ -51,38 +48,29 @@ public class MonitorRegisterUI extends DisposableJFrame {
         switch (type) {
             case HEART_RATE:
                 HeartRateConnector heartRateConnector = HeartRateConnector.getInstance();
-                List<String> heartRateMonitors = heartRateConnector.findAllNotUsed().stream()
-                        .map(item -> item.getCode().toString())
-                        .collect(Collectors.toList());
-                availableSensorsList.setListData(heartRateMonitors.toArray(new String[heartRateMonitors.size()]));
+                availableSensorsList.setListData(heartRateConnector.findAllNotUsed().stream()
+                        .map(item -> item.getCode().toString()).toArray(String[]::new));
                 break;
-
-
             case BLOOD_PRESSURE:
                 BloodPressureConnector bloodPressureConnector = BloodPressureConnector.getInstance();
-                List<String> bloodPressureMonitors = bloodPressureConnector.findAllNotUsed().stream()
-                        .map(item -> item.getCode().toString())
-                        .collect(Collectors.toList());
-                availableSensorsList.setListData(bloodPressureMonitors.toArray(new String[bloodPressureMonitors.size()]));
+                availableSensorsList.setListData(bloodPressureConnector.findAllNotUsed().stream()
+                        .map(item -> item.getCode().toString()).toArray(String[]::new));
                 break;
-
-
             case SMART_TRACKER:
                 SmartTrackerConnector smartTrackerConnector = SmartTrackerConnector.getInstance();
-                List<String> smartTrackerMonitor = smartTrackerConnector.findAllNotUsed().stream()
-                        .map(item -> item.getCode().toString())
-                        .collect(Collectors.toList());
-                availableSensorsList.setListData(smartTrackerMonitor.toArray(new String[smartTrackerMonitor.size()]));
+                availableSensorsList.setListData(smartTrackerConnector.findAllNotUsed().stream()
+                        .map(item -> item.getCode().toString()).toArray(String[]::new));
                 break;
-
             case TEMPERATURE_MONITOR:
                 TemperatureConnector temperatureConnector = TemperatureConnector.getInstance();
-                List<String> temperatureMonitors = temperatureConnector.findAllNotUsed().stream()
-                        .map(item -> item.getCode().toString())
-                        .collect(Collectors.toList());
-                availableSensorsList.setListData(temperatureMonitors.toArray(new String[temperatureMonitors.size()]));
+                availableSensorsList.setListData(temperatureConnector.findAllNotUsed().stream()
+                        .map(item -> item.getCode().toString()).toArray(String[]::new));
                 break;
-
+            case EMERGENCY_BUTTON:
+                AlertButtonConnector alertButtonConnector = AlertButtonConnector.getInstance();
+                availableSensorsList.setListData(alertButtonConnector.findAll().stream()
+                        .map(item -> item.getCode().toString()).toArray(String[]::new));
+                break;
             default:
                 availableSensorsList.setListData(new String[]{});
                 break;

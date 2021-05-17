@@ -10,6 +10,6 @@ public class AlertButtonObserverImpl extends ObserverImpl implements AlertButton
 
     @Override
     public void alert(Long buttonCode) {
-        Notifier.alertDoctor("ALERTA: EmergencyButton", "COD " + buttonCode);
+        Notifier.alertDoctor("ALERTA: Botão de Emergência", "COD " + buttonCode);
     }
 }

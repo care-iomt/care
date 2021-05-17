@@ -9,6 +9,7 @@ import com.care.data_center.entities.Patient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class AlertButtonConnector {
     private static AlertButtonConnector instance;
@@ -43,6 +44,10 @@ public class AlertButtonConnector {
             instance = new AlertButtonConnector();
         }
         return instance;
+    }
+
+    public List<AlertButtonMonitor> findAll() {
+        return alertButtonMonitors;
     }
 
     public Optional<AlertButtonMonitor> getByCode(Long code) {
