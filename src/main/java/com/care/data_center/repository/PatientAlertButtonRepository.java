@@ -33,19 +33,9 @@ public class PatientAlertButtonRepository {
         });
     }
 
-    public Optional<PatientAlertButton> findByPatient(Patient patient) {
-        return patientAlertButtons.stream()
-                .filter(patientAlertButton -> patientAlertButton.getPatient().getPatientId().equals(patient.getPatientId()))
-                .findFirst();
-    }
-
     public Optional<PatientAlertButton> findByCode(Long code) {
         return patientAlertButtons.stream()
                 .filter(patientAlertButton -> patientAlertButton.getAlertButtonCode().equals(code))
                 .findFirst();
-    }
-
-    public List<PatientAlertButton> findAll() {
-        return this.patientAlertButtons;
     }
 }

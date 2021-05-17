@@ -6,8 +6,4 @@ public class Notifier {
     public static void alertDoctor(String TAG, String message) {
         notificationReceiver.alert(TAG, message);
     }
-
-    public static void alertDoctor(String message) {
-        notificationReceiver.alert(message);
-    }
 }

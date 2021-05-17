@@ -26,11 +26,6 @@ public class PatientControllerImpl implements PatientController {
     }
 
     @Override
-    public boolean isRegistered(String cpf) {
-        return patientRepository.findByCPF(cpf).isPresent();
-    }
-
-    @Override
     public boolean register(Patient patient) {
         if (StringUtils.isValidCpf(patient.getCpf())) {
             patientRepository.save(patient);

@@ -6,7 +6,6 @@ import com.care.blood_pressure.BloodPressureObserver;
 import com.care.heart_rate.HeartRateObserver;
 import com.care.smart_tracker.SmartTrackerObserver;
 import com.care.temperature_monitor.TemperatureObserver;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,11 +14,11 @@ public class ObserverManager {
 
     private static ObserverManager instance;
 
-    private List<AlertButtonObserverImpl> alertButtonObservers;
-    private List<BloodPressureObserverImpl> bloodPressureObservers;
-    private List<SmartTrackerObserverImpl> smartTrackerObservers;
-    private List<TemperatureObserverImpl> temperatureObservers;
-    private List<HeartRateObserverImpl> heartRateObservers;
+    private final List<AlertButtonObserverImpl> alertButtonObservers;
+    private final List<BloodPressureObserverImpl> bloodPressureObservers;
+    private final List<SmartTrackerObserverImpl> smartTrackerObservers;
+    private final List<TemperatureObserverImpl> temperatureObservers;
+    private final List<HeartRateObserverImpl> heartRateObservers;
 
     public ObserverManager() {
         this.alertButtonObservers = new ArrayList<>();
@@ -77,32 +76,6 @@ public class ObserverManager {
         }
     }
 
-    public List<ObserverImpl> getObserversByPatientId(Long patientId) {
-        List<ObserverImpl> patientObserverImpls = new ArrayList<>();
-
-        alertButtonObservers.stream().
-                filter(observer -> observer.getPatientId().equals(patientId)).findFirst()
-                .ifPresent(patientObserverImpls::add);
-
-        bloodPressureObservers.stream().
-                filter(bloodPressureObserver -> bloodPressureObserver.getPatientId().equals(patientId)).findFirst()
-                .ifPresent(patientObserverImpls::add);
-
-        smartTrackerObservers.stream().
-                filter(observer -> observer.getPatientId().equals(patientId)).findFirst()
-                .ifPresent(patientObserverImpls::add);
-
-        temperatureObservers.stream().
-                filter(observer -> observer.getPatientId().equals(patientId)).findFirst()
-                .ifPresent(patientObserverImpls::add);
-
-        heartRateObservers.stream().
-                filter(observer -> observer.getPatientId().equals(patientId)).findFirst()
-                .ifPresent(patientObserverImpls::add);
-
-        return patientObserverImpls;
-    }
-
     public Optional<AlertButtonObserverImpl> getAlertButtonObserversByPatientId(Long patientId) {
         return alertButtonObservers.stream().
                 filter(observer -> observer.getPatientId().equals(patientId)).findFirst();
@@ -147,25 +120,5 @@ public class ObserverManager {
 
     public void remove(HeartRateObserver heartRateObserver) {
         heartRateObservers.remove(heartRateObserver);
-    }
-
-    public List<AlertButtonObserverImpl> getAlertButtonObservers() {
-        return alertButtonObservers;
-    }
-
-    public List<BloodPressureObserverImpl> getBloodPressureObservers() {
-        return bloodPressureObservers;
-    }
-
-    public List<SmartTrackerObserverImpl> getSmartTrackerObservers() {
-        return smartTrackerObservers;
-    }
-
-    public List<TemperatureObserverImpl> getTemperatureObservers() {
-        return temperatureObservers;
-    }
-
-    public List<HeartRateObserverImpl> getHeartRateObservers() {
-        return heartRateObservers;
     }
 }

@@ -7,7 +7,5 @@ public interface PatientController {
 
     Patient getById(Long patientId);
 
-    boolean isRegistered(String cpf);
-
     boolean register(Patient patient);
 }

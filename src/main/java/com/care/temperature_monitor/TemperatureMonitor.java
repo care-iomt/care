@@ -28,13 +28,6 @@ public interface TemperatureMonitor {
     void addObserver(TemperatureObserver observer);
 
     /**
-     * remove um observer
-     *
-     * @param observer objeto para callback
-     */
-    void removeObserver(TemperatureObserver observer);
-
-    /**
      * Retorna o estado atual
      *
      * @return estado atual

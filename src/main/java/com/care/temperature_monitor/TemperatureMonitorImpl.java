@@ -57,11 +57,6 @@ public class TemperatureMonitorImpl implements TemperatureMonitor {
     }
 
     @Override
-    public void removeObserver(TemperatureObserver observer) {
-        observerList.remove(observer);
-    }
-
-    @Override
     public TemperatureState getCurrentState() {
         return state;
     }
