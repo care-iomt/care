@@ -47,19 +47,19 @@ public class TemperatureConnector {
         return temperatureMonitors.stream().filter(temperatureMonitor -> !temperatureMonitor.isUsed()).collect(Collectors.toList());
     }
 
-    public Optional<TemperatureMonitor> getByCode(Long code) {
+    public Optional<TemperatureMonitor> findByCode(Long code) {
         return temperatureMonitors.stream()
                 .filter(temperatureMonitor -> code.equals(temperatureMonitor.getCode())).findFirst();
     }
 
-    public Optional<TemperatureMonitor> getByPatientId(Long patientId) {
+    public Optional<TemperatureMonitor> findByPatientId(Long patientId) {
         return temperatureMonitors.stream()
                 .filter(temperatureMonitor -> patientId.equals(temperatureMonitor.getPatientId())).findFirst();
     }
 
     public void attachPatientToMonitor(Patient patient, Long code, TemperatureObserverImpl temperatureObserver,
                                        TemperatureConfig config) {
-        getByCode(code).ifPresent(temperatureMonitor -> {
+        findByCode(code).ifPresent(temperatureMonitor -> {
             temperatureMonitor.configure(config);
             temperatureMonitor.addObserver(temperatureObserver);
             temperatureMonitor.start(patient.getPatientId());
@@ -67,7 +67,7 @@ public class TemperatureConnector {
     }
 
     public void detachPatientOfMonitor(Long code) {
-        final Optional<TemperatureMonitor> temperatureMonitorOptional = getByCode(code);
+        final Optional<TemperatureMonitor> temperatureMonitorOptional = findByCode(code);
         temperatureMonitorOptional.ifPresent(TemperatureMonitor::stop);
     }
 }

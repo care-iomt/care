@@ -9,7 +9,6 @@ import com.care.data_center.entities.Patient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class AlertButtonConnector {
     private static AlertButtonConnector instance;
@@ -50,13 +49,13 @@ public class AlertButtonConnector {
         return alertButtonMonitors;
     }
 
-    public Optional<AlertButtonMonitor> getByCode(Long code) {
+    public Optional<AlertButtonMonitor> findByCode(Long code) {
         return alertButtonMonitors.stream()
                 .filter(alertButtonMonitor -> alertButtonMonitor.getCode().equals(code)).findFirst();
     }
 
     public void attachPatientToMonitor(Patient patient, Long code, AlertButtonObserverImpl alertButtonObserver) {
-        final Optional<AlertButtonMonitor> alertButtonMonitorSearch = getByCode(code);
+        final Optional<AlertButtonMonitor> alertButtonMonitorSearch = findByCode(code);
         if (alertButtonMonitorSearch.isPresent()) {
             final AlertButtonMonitor alertButtonMonitor = alertButtonMonitorSearch.get();
             final PatientAlertButtonController controller = dataCenterConnection.getPatientAlertButtonController();
@@ -66,7 +65,7 @@ public class AlertButtonConnector {
     }
 
     public void detachPatientOfMonitor(Long code, AlertButtonObserverImpl alertButtonObserver) {
-        final Optional<AlertButtonMonitor> alertButtonMonitorOptional = getByCode(code);
+        final Optional<AlertButtonMonitor> alertButtonMonitorOptional = findByCode(code);
         alertButtonMonitorOptional.ifPresent(alertButtonMonitor -> {
             final PatientAlertButtonController controller = dataCenterConnection.getPatientAlertButtonController();
             controller.delete(code);

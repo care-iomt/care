@@ -46,23 +46,23 @@ public class MonitorRemoveUI extends DisposableJFrame {
         Long patientId = patient.getPatientId();
 
         ObserverManager observerManager = ObserverManager.getInstance();
-        observerManager.getAlertButtonObserversByPatientId(patientId)
+        observerManager.findAlertButtonObserversByPatientId(patientId)
                 .ifPresent(alertButtonObserver ->
                         patientMonitors.add(SmartMonitors.EMERGENCY_BUTTON.getName()));
 
-        observerManager.getBloodPressureObserversByPatientId(patientId)
+        observerManager.findBloodPressureObserversByPatientId(patientId)
                 .ifPresent(bloodPressureObserver ->
                         patientMonitors.add(SmartMonitors.BLOOD_PRESSURE.getName()));
 
-        observerManager.getHeartRateObserversByPatientId(patientId)
+        observerManager.findHeartRateObserversByPatientId(patientId)
                 .ifPresent(heartRateObserver ->
                         patientMonitors.add(SmartMonitors.HEART_RATE.getName()));
 
-        observerManager.getTemperatureObserversByPatientId(patientId)
+        observerManager.findTemperatureObserversByPatientId(patientId)
                 .ifPresent(temperatureObserver ->
                         patientMonitors.add(SmartMonitors.TEMPERATURE_MONITOR.getName()));
 
-        observerManager.getSmartTrackerObserversByPatientId(patientId)
+        observerManager.findSmartTrackerObserversByPatientId(patientId)
                 .ifPresent(smartTrackerObserver ->
                         patientMonitors.add(SmartMonitors.SMART_TRACKER.getName()));
 
@@ -170,7 +170,7 @@ public class MonitorRemoveUI extends DisposableJFrame {
             switch (type) {
                 case HEART_RATE:
                     HeartRateConnector heartRateConnector = HeartRateConnector.getInstance();
-                    Optional<HeartRateObserverImpl> heartRateObserverOptional = observerManager.getHeartRateObserversByPatientId(patientId);
+                    Optional<HeartRateObserverImpl> heartRateObserverOptional = observerManager.findHeartRateObserversByPatientId(patientId);
                     if (heartRateObserverOptional.isPresent()) {
                         HeartRateObserverImpl heartRateObserver = heartRateObserverOptional.get();
                         heartRateConnector.detachPatientOfMonitor(heartRateObserver.getMonitorCode());
@@ -183,7 +183,7 @@ public class MonitorRemoveUI extends DisposableJFrame {
 
                 case BLOOD_PRESSURE:
                     BloodPressureConnector bloodPressureConnector = BloodPressureConnector.getInstance();
-                    Optional<BloodPressureObserverImpl> bloodPressureObserverOptional = observerManager.getBloodPressureObserversByPatientId(patientId);
+                    Optional<BloodPressureObserverImpl> bloodPressureObserverOptional = observerManager.findBloodPressureObserversByPatientId(patientId);
                     if (bloodPressureObserverOptional.isPresent()) {
                         BloodPressureObserverImpl bloodPressureObserver = bloodPressureObserverOptional.get();
                         bloodPressureConnector.detachPatientOfMonitor(bloodPressureObserver.getMonitorCode());
@@ -196,7 +196,7 @@ public class MonitorRemoveUI extends DisposableJFrame {
 
                 case SMART_TRACKER:
                     SmartTrackerConnector smartTrackerConnector = SmartTrackerConnector.getInstance();
-                    Optional<SmartTrackerObserverImpl> smartTrackerObserverOptional = observerManager.getSmartTrackerObserversByPatientId(patientId);
+                    Optional<SmartTrackerObserverImpl> smartTrackerObserverOptional = observerManager.findSmartTrackerObserversByPatientId(patientId);
                     if (smartTrackerObserverOptional.isPresent()) {
                         SmartTrackerObserverImpl smartTrackerObserver = smartTrackerObserverOptional.get();
                         smartTrackerConnector.detachPatientOfMonitor(smartTrackerObserver.getMonitorCode());
@@ -208,7 +208,7 @@ public class MonitorRemoveUI extends DisposableJFrame {
 
                 case TEMPERATURE_MONITOR:
                     TemperatureConnector temperatureConnector = TemperatureConnector.getInstance();
-                    Optional<TemperatureObserverImpl> temperatureObserverOptional = observerManager.getTemperatureObserversByPatientId(patientId);
+                    Optional<TemperatureObserverImpl> temperatureObserverOptional = observerManager.findTemperatureObserversByPatientId(patientId);
                     if (temperatureObserverOptional.isPresent()) {
                         TemperatureObserverImpl temperatureObserver = temperatureObserverOptional.get();
                         temperatureConnector.detachPatientOfMonitor(temperatureObserver.getMonitorCode());
@@ -221,7 +221,7 @@ public class MonitorRemoveUI extends DisposableJFrame {
 
                 case EMERGENCY_BUTTON:
                     AlertButtonConnector alertButtonConnector = AlertButtonConnector.getInstance();
-                    Optional<AlertButtonObserverImpl> alertButtonObserverOptional = observerManager.getAlertButtonObserversByPatientId(patientId);
+                    Optional<AlertButtonObserverImpl> alertButtonObserverOptional = observerManager.findAlertButtonObserversByPatientId(patientId);
                     if (alertButtonObserverOptional.isPresent()) {
                         AlertButtonObserverImpl alertButtonObserver = alertButtonObserverOptional.get();
                         alertButtonConnector.detachPatientOfMonitor(alertButtonObserver.getMonitorCode(), alertButtonObserver);

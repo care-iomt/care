@@ -37,7 +37,7 @@ public class ObserverManager {
     }
 
     public void add(AlertButtonObserverImpl alertButtonObserver) throws AlreadyHaveMonitorAttachedException {
-        if (getAlertButtonObserversByPatientId(alertButtonObserver.getPatientId()).isEmpty()) {
+        if (findAlertButtonObserversByPatientId(alertButtonObserver.getPatientId()).isEmpty()) {
             alertButtonObservers.add(alertButtonObserver);
         } else {
             throw new AlreadyHaveMonitorAttachedException();
@@ -45,7 +45,7 @@ public class ObserverManager {
     }
 
     public void add(BloodPressureObserverImpl bloodPressureObserver) throws AlreadyHaveMonitorAttachedException {
-        if (getBloodPressureObserversByPatientId(bloodPressureObserver.getPatientId()).isEmpty()) {
+        if (findBloodPressureObserversByPatientId(bloodPressureObserver.getPatientId()).isEmpty()) {
             bloodPressureObservers.add(bloodPressureObserver);
         } else {
             throw new AlreadyHaveMonitorAttachedException();
@@ -53,7 +53,7 @@ public class ObserverManager {
     }
 
     public void add(SmartTrackerObserverImpl smartTrackerObserver) throws AlreadyHaveMonitorAttachedException {
-        if (getSmartTrackerObserversByPatientId(smartTrackerObserver.getPatientId()).isEmpty()) {
+        if (findSmartTrackerObserversByPatientId(smartTrackerObserver.getPatientId()).isEmpty()) {
             smartTrackerObservers.add(smartTrackerObserver);
         } else {
             throw new AlreadyHaveMonitorAttachedException();
@@ -61,7 +61,7 @@ public class ObserverManager {
     }
 
     public void add(TemperatureObserverImpl temperatureObserver) throws AlreadyHaveMonitorAttachedException {
-        if (getTemperatureObserversByPatientId(temperatureObserver.getPatientId()).isEmpty()) {
+        if (findTemperatureObserversByPatientId(temperatureObserver.getPatientId()).isEmpty()) {
             temperatureObservers.add(temperatureObserver);
         } else {
             throw new AlreadyHaveMonitorAttachedException();
@@ -69,34 +69,34 @@ public class ObserverManager {
     }
 
     public void add(HeartRateObserverImpl heartRateObserver) throws AlreadyHaveMonitorAttachedException {
-        if (getHeartRateObserversByPatientId(heartRateObserver.getPatientId()).isEmpty()) {
+        if (findHeartRateObserversByPatientId(heartRateObserver.getPatientId()).isEmpty()) {
             heartRateObservers.add(heartRateObserver);
         } else {
             throw new AlreadyHaveMonitorAttachedException();
         }
     }
 
-    public Optional<AlertButtonObserverImpl> getAlertButtonObserversByPatientId(Long patientId) {
+    public Optional<AlertButtonObserverImpl> findAlertButtonObserversByPatientId(Long patientId) {
         return alertButtonObservers.stream().
                 filter(observer -> observer.getPatientId().equals(patientId)).findFirst();
     }
 
-    public Optional<BloodPressureObserverImpl> getBloodPressureObserversByPatientId(Long patientId) {
+    public Optional<BloodPressureObserverImpl> findBloodPressureObserversByPatientId(Long patientId) {
         return bloodPressureObservers.stream().
                 filter(observer -> observer.getPatientId().equals(patientId)).findFirst();
     }
 
-    public Optional<SmartTrackerObserverImpl> getSmartTrackerObserversByPatientId(Long patientId) {
+    public Optional<SmartTrackerObserverImpl> findSmartTrackerObserversByPatientId(Long patientId) {
         return smartTrackerObservers.stream().
                 filter(observer -> observer.getPatientId().equals(patientId)).findFirst();
     }
 
-    public Optional<TemperatureObserverImpl> getTemperatureObserversByPatientId(Long patientId) {
+    public Optional<TemperatureObserverImpl> findTemperatureObserversByPatientId(Long patientId) {
         return temperatureObservers.stream().
                 filter(observer -> observer.getPatientId().equals(patientId)).findFirst();
     }
 
-    public Optional<HeartRateObserverImpl> getHeartRateObserversByPatientId(Long patientId) {
+    public Optional<HeartRateObserverImpl> findHeartRateObserversByPatientId(Long patientId) {
         return heartRateObservers.stream().
                 filter(observer -> observer.getPatientId().equals(patientId)).findFirst();
     }

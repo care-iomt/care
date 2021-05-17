@@ -47,19 +47,19 @@ public class BloodPressureConnector {
         return bloodPressureMonitors.stream().filter(heartRateMonitor -> !heartRateMonitor.isUsed()).collect(Collectors.toList());
     }
 
-    public Optional<BloodPressureMonitor> getByCode(Long code) {
+    public Optional<BloodPressureMonitor> findByCode(Long code) {
         return bloodPressureMonitors.stream()
                 .filter(heartRateMonitor -> code.equals(heartRateMonitor.getCode())).findFirst();
     }
 
-    public Optional<BloodPressureMonitor> getByPatientId(Long patientId) {
+    public Optional<BloodPressureMonitor> findByPatientId(Long patientId) {
         return bloodPressureMonitors.stream()
                 .filter(heartRateMonitor -> patientId.equals(heartRateMonitor.getPatientId())).findFirst();
     }
 
     public void attachPatientToMonitor(Patient patient, Long code, BloodPressureObserverImpl observer,
                                        BloodPressureConfig config) {
-        getByCode(code).ifPresent(heartRateMonitor -> {
+        findByCode(code).ifPresent(heartRateMonitor -> {
             heartRateMonitor.configure(config);
             heartRateMonitor.addObserver(observer);
             heartRateMonitor.start(patient.getPatientId());
@@ -67,7 +67,7 @@ public class BloodPressureConnector {
     }
 
     public void detachPatientOfMonitor(Long code) {
-        final Optional<BloodPressureMonitor> bloodPressureMonitorOptional = getByCode(code);
+        final Optional<BloodPressureMonitor> bloodPressureMonitorOptional = findByCode(code);
         bloodPressureMonitorOptional.ifPresent(BloodPressureMonitor::stop);
     }
 }

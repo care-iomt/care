@@ -4,7 +4,6 @@ import com.care.data_center.DataCenterConnection;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 public class AlertButtonMonitorImpl implements AlertButtonMonitor {
     private final List<AlertButtonObserver> observerList;

@@ -202,7 +202,7 @@ public class MonitorRegisterUI extends DisposableJFrame {
             case HEART_RATE:
                 HeartRateConnector heartRateConnector = HeartRateConnector.getInstance();
                 Long heartRateMonitorValue = Long.parseLong(availableSensorsList.getSelectedValue());
-                HeartRateMonitor heartRateMonitor = heartRateConnector.getByCode(heartRateMonitorValue).get();
+                HeartRateMonitor heartRateMonitor = heartRateConnector.findByCode(heartRateMonitorValue).get();
                 if (newMonitorUI == null || newMonitorUI.isDisposed()) {
                     newMonitorUI = new HeartRateRegisterUI(this, patient, heartRateMonitor);
                     newMonitorUI.setVisible(true);
@@ -214,7 +214,7 @@ public class MonitorRegisterUI extends DisposableJFrame {
                 BloodPressureConnector bloodPressureConnector = BloodPressureConnector.getInstance();
                 Long bloodPressureMonitorValue = Long.parseLong(availableSensorsList.getSelectedValue());
                 BloodPressureMonitor bloodPressureMonitor = bloodPressureConnector.
-                        getByCode(bloodPressureMonitorValue).get();
+                        findByCode(bloodPressureMonitorValue).get();
                 if (newMonitorUI == null || newMonitorUI.isDisposed()) {
                     newMonitorUI = new BloodPressureRegisterUI(this, patient, bloodPressureMonitor);
                     newMonitorUI.setVisible(true);
@@ -233,7 +233,7 @@ public class MonitorRegisterUI extends DisposableJFrame {
             case TEMPERATURE_MONITOR:
                 TemperatureConnector temperatureConnector = TemperatureConnector.getInstance();
                 Long temperatureMonitorValue = Long.parseLong(availableSensorsList.getSelectedValue());
-                TemperatureMonitor temperatureMonitor = temperatureConnector.getByCode(temperatureMonitorValue).get();
+                TemperatureMonitor temperatureMonitor = temperatureConnector.findByCode(temperatureMonitorValue).get();
                 if (newMonitorUI == null || newMonitorUI.isDisposed()) {
                     newMonitorUI = new TemperatureMonitorRegisterUI(this, patient, temperatureMonitor);
                     newMonitorUI.setVisible(true);
@@ -242,7 +242,7 @@ public class MonitorRegisterUI extends DisposableJFrame {
             case EMERGENCY_BUTTON:
                 AlertButtonConnector alertConnector = AlertButtonConnector.getInstance();
                 Long alertMonitorValue = Long.parseLong(availableSensorsList.getSelectedValue());
-                AlertButtonMonitor alertButtonMonitor = alertConnector.getByCode(alertMonitorValue).get();
+                AlertButtonMonitor alertButtonMonitor = alertConnector.findByCode(alertMonitorValue).get();
                 registerEmergencyButton(alertButtonMonitor);
                 break;
 

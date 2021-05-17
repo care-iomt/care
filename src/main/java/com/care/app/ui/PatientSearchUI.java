@@ -307,7 +307,7 @@ public class PatientSearchUI extends DisposableJFrame {
 
     private String getBloodPressureByPatientId(Long patientId) {
         BloodPressureConnector bloodPressureConnector = BloodPressureConnector.getInstance();
-        Optional<BloodPressureMonitor> monitor = bloodPressureConnector.getByPatientId(patientId);
+        Optional<BloodPressureMonitor> monitor = bloodPressureConnector.findByPatientId(patientId);
         if (monitor.isPresent()) {
             BloodPressureState bloodPressureState = monitor.get().getCurrentState();
             return bloodPressureState.toString();
@@ -318,7 +318,7 @@ public class PatientSearchUI extends DisposableJFrame {
 
     private String getHeartRateByPatientId(Long patientId) {
         HeartRateConnector heartRateConnector = HeartRateConnector.getInstance();
-        Optional<HeartRateMonitor> monitor = heartRateConnector.getByPatientId(patientId);
+        Optional<HeartRateMonitor> monitor = heartRateConnector.findByPatientId(patientId);
         if (monitor.isPresent()) {
             HeartRateState heartRateState = monitor.get().getCurrentState();
             return heartRateState.toString();
@@ -329,7 +329,7 @@ public class PatientSearchUI extends DisposableJFrame {
 
     private String getTemperatureByPatientId(Long patientId) {
         TemperatureConnector temperatureConnector = TemperatureConnector.getInstance();
-        Optional<TemperatureMonitor> monitor = temperatureConnector.getByPatientId(patientId);
+        Optional<TemperatureMonitor> monitor = temperatureConnector.findByPatientId(patientId);
         if (monitor.isPresent()) {
             TemperatureState temperatureState = monitor.get().getCurrentState();
             return temperatureState.toString();
