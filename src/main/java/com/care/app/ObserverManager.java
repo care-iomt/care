@@ -11,9 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ObserverManager {
-
     private static ObserverManager instance;
-
     private final List<AlertButtonObserverImpl> alertButtonObservers;
     private final List<BloodPressureObserverImpl> bloodPressureObservers;
     private final List<SmartTrackerObserverImpl> smartTrackerObservers;
